@@ -1,31 +1,47 @@
 package com.example.pmjewellers;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
-
+public class splashScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_splash_screen);
         getSupportActionBar().hide();
+        Thread splashScreen = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    sleep(5000);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    Intent loginActivity = new Intent(splashScreenActivity.this, MainActivity.class);
+                    startActivity(loginActivity);
+                }
 
+            }
+
+        };
+        splashScreen.start();
 
 
     }
+
     @Override
-    public void onBackPressed(){
-        new AlertDialog.Builder(MainActivity.this)
+    public void onBackPressed() {
+        super.onBackPressed();
+    new AlertDialog.Builder(splashScreenActivity.this)
                 .setIcon(R.drawable.warning)
                 .setTitle("Warning !!!")
-                .setMessage("Are you shore to Exit ?")
+                .setMessage("Are you sure to Exit ?")
                 .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -38,15 +54,16 @@ public class MainActivity extends AppCompatActivity {
                 .setNeutralButton("Help", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(MainActivity.this, "Press Exit button to close the app, else press Cancel ", Toast.LENGTH_LONG).show();
+                        Toast.makeText(splashScreenActivity.this, "Press Exit button to close the app, else press Cancel ", Toast.LENGTH_LONG).show();
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+
                     }
                 }).show();
-
     }
+
 
 }
