@@ -1,9 +1,8 @@
+//This is main Activity
+
 package com.example.pmjewellers;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-
-
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
