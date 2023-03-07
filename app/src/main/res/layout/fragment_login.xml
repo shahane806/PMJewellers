@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".loginRegisterFragments.LoginFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:id="@+id/Login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="33dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="33dp"
+        android:layout_marginBottom="30dp"
+        android:orientation="vertical">
+
+
+
+    <TextView
+        android:id="@+id/LoginMainHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/Login"
+        android:textColor="#13289C"
+        android:textSize="33dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/LoginUserName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:hint="@string/UserName"
+        android:inputType="textPersonName"
+        android:paddingStart="10sp"
+        android:paddingEnd="10sp" />
+
+    <EditText
+        android:id="@+id/LoginPassword"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="33dp"
+        android:ems="10"
+        android:gravity="start"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:paddingStart="10sp"
+        android:paddingEnd="10sp" />
+
+    <Button
+        android:id="@+id/FragmentLoginLoginBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15sp"
+        android:text="@string/Login" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/LoginByText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="33dp"
+            android:gravity="center"
+            android:text="@string/loginBy"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:id="@+id/LoginBtns"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="33dp">
+
+            <Button
+                android:id="@+id/FacebookLoginBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:padding="15sp"
+                android:text="@string/Facebook" />
+
+            <Button
+                android:id="@+id/GoogleLoginBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:padding="15sp"
+                android:text="@string/Google" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="33dp">
+
+        <TextView
+            android:id="@+id/CreateAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/createAccount" />
+
+        <Button
+            android:id="@+id/FragmentLoginRegisterBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15sp"
+            android:text="@string/Register" />
+    </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

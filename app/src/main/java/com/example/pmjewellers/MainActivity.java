@@ -1,6 +1,7 @@
 package com.example.pmjewellers;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -8,7 +9,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.pmjewellers.loginRegisterFragments.LoginFragment;
+import com.example.pmjewellers.loginRegisterFragments.RegisterFragment;
+
+public class MainActivity extends AppCompatActivity{
 
 
     @Override
@@ -17,15 +21,39 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
 
-
+        LoginFragment();
 
     }
+    public void changeFragment(String id){
+        if(id == "LoginFragment")
+        {
+            LoginFragment();
+        } else if (id == "RegisterFragment") {
+            RegisterFragment();
+        }
+    }
+
+    public void LoginFragment(){
+        LoginFragment loginRegisterFragment = new LoginFragment();
+        FragmentTransaction loginRegisterFragmentTransaction = getSupportFragmentManager().beginTransaction();
+        loginRegisterFragmentTransaction.replace(R.id.LoginRegister,loginRegisterFragment);
+
+        loginRegisterFragmentTransaction.commit();
+    }
+    public void RegisterFragment(){
+        RegisterFragment loginRegisterFragment = new RegisterFragment();
+        FragmentTransaction loginRegisterFragmentTransaction = getSupportFragmentManager().beginTransaction();
+        loginRegisterFragmentTransaction.replace(R.id.LoginRegister,loginRegisterFragment);
+
+        loginRegisterFragmentTransaction.commit();
+    }
+
     @Override
     public void onBackPressed(){
         new AlertDialog.Builder(MainActivity.this)
                 .setIcon(R.drawable.warning)
                 .setTitle("Warning !!!")
-                .setMessage("Are you shore to Exit ?")
+                .setMessage("Are you sure to Exit ?")
                 .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

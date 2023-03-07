@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">PMJewellers</string>
+    <string name="Login">Login</string>
+    <string name="UserName">UserName</string>
+    <string name="Password">Password</string>
+    <string name="Facebook">Facebook</string>
+    <string name="Google">Google</string>
+    <string name="createAccount">Not created account , create account by clicking Register button</string>
+    <string name="Register">Register</string>
+    <string name="loginBy">------Login By-----</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ConfirmPassword">ConfirmPassword</string>
+    <string name="backToLogin">Back to login</string>
 </resources>
