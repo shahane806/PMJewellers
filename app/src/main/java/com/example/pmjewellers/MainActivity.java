@@ -2,9 +2,6 @@ package com.example.pmjewellers;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
-//gg
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
