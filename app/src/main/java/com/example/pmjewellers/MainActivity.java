@@ -1,3 +1,5 @@
+//This is main Activity
+
 package com.example.pmjewellers;
 
 import androidx.appcompat.app.AppCompatActivity;
