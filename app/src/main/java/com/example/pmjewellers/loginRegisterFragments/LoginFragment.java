@@ -82,6 +82,13 @@ public class LoginFragment extends Fragment {
             public void onClick(View view) {
                 mainActivity.changeFragment("Dashboard");
                // Check Login Validation
+
+
+
+
+
+
+
             }
         });
 

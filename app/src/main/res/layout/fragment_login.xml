@@ -29,16 +29,16 @@
         android:textSize="33dp"
         android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/LoginUserName"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="50dp"
-        android:ems="10"
-        android:hint="@string/UserName"
-        android:inputType="textPersonName"
-        android:paddingStart="10sp"
-        android:paddingEnd="10sp" />
+        <EditText
+            android:id="@+id/LoginUserName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp"
+            android:ems="10"
+            android:hint="@string/Email"
+            android:inputType="textPersonName"
+            android:paddingStart="10sp"
+            android:paddingEnd="10sp" />
 
     <EditText
         android:id="@+id/LoginPassword"
