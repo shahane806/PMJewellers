@@ -83,6 +83,11 @@ public class RegisterFragment extends Fragment {
                 mainActivity.changeFragment("Dashboard");
 
                 //Check Registration Validation
+
+
+
+
+
             }
         });
         return view;
