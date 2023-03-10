@@ -60,6 +60,7 @@ public class RegisterFragment extends Fragment {
     }
 
     Button LoginBtn;
+    Button RegisterRegisterBtn;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,8 +71,18 @@ public class RegisterFragment extends Fragment {
         LoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               mainActivity.changeFragment("LoginFragment");
+                mainActivity.changeFragment("LoginFragment");
 
+            }
+
+        });
+        RegisterRegisterBtn = (Button)view.findViewById(R.id.FragmentRegisterRegisterBtn);
+        RegisterRegisterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainActivity.changeFragment("Dashboard");
+
+                //Check Registration Validation
             }
         });
         return view;

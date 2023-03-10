@@ -1,5 +1,6 @@
 package com.example.pmjewellers.loginRegisterFragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -61,6 +62,7 @@ public class LoginFragment extends Fragment {
 
     }
     Button RegisterBtn;
+    Button LoginBtn;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,6 +74,14 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 mainActivity.changeFragment("RegisterFragment");
+            }
+        });
+        LoginBtn = (Button)view.findViewById(R.id.FragmentLoginLoginBtn);
+        LoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainActivity.changeFragment("Dashboard");
+               // Check Login Validation
             }
         });
 

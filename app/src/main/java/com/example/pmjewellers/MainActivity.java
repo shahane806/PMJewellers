@@ -1,4 +1,4 @@
-//This is main Activity
+
 
 package com.example.pmjewellers;
 
@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.pmjewellers.loginRegisterFragments.LoginFragment;
 import com.example.pmjewellers.loginRegisterFragments.RegisterFragment;
+import com.google.android.material.navigation.NavigationBarMenu;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -33,8 +34,14 @@ public class MainActivity extends AppCompatActivity{
         } else if (id == "RegisterFragment") {
             RegisterFragment();
         }
+        else if(id == "Dashboard"){
+            Dashboard();
+        }
     }
-
+    public void Dashboard(){
+        Intent Dashboard = new Intent(getApplicationContext(),MainActivity2.class);
+        startActivity(Dashboard);
+    }
     public void LoginFragment(){
         LoginFragment loginRegisterFragment = new LoginFragment();
         FragmentTransaction loginRegisterFragmentTransaction = getSupportFragmentManager().beginTransaction();
