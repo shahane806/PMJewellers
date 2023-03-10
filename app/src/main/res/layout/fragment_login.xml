@@ -87,6 +87,9 @@
                 android:layout_margin="3dp"
                 android:layout_weight="1"
                 android:padding="15sp"
+                android:backgroundTint="@color/purple_700"
+                android:textColor="@color/white"
+                android:textSize="12sp"
                 android:text="@string/Facebook" />
 
             <Button
@@ -95,8 +98,12 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:fontFamily="sans-serif"
                 android:padding="15sp"
-                android:text="@string/Google" />
+                android:text="@string/Google"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
         </LinearLayout>
 
     </LinearLayout>
