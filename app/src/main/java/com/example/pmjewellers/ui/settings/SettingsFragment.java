@@ -18,15 +18,11 @@ public class SettingsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        SettingsViewModel settingsViewModel =
-                new ViewModelProvider(this).get(SettingsViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        final TextView textView = binding.textHome;
-        settingsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+            //Settings
+          return root;
     }
 
     @Override

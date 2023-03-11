@@ -18,15 +18,12 @@ public class FeedbackFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        FeedbackViewModel feedbackViewModel =
-                new ViewModelProvider(this).get(FeedbackViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+           //Feedbackview
 
-        final TextView textView = binding.textHome;
-        feedbackViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+          return root;
     }
 
     @Override

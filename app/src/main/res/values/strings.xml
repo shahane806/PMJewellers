@@ -37,4 +37,6 @@
     <string name="menu_feedback">Feedback</string>
     <string name="Bag" />
     <string name="Bag2">Bag</string>
+    <string name="UserName">UserName</string>
+    <string name="BagIsEmpty">Bag Empty</string>
 </resources>

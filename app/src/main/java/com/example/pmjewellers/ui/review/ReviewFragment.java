@@ -18,15 +18,11 @@ public class ReviewFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        ReviewViewModel reviewViewModel =
-                new ViewModelProvider(this).get(ReviewViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        final TextView textView = binding.textHome;
-        reviewViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+            //Reviews
+           return root;
     }
 
     @Override
