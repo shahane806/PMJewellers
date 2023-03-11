@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.example.pmjewellers.loginRegisterFragments.LoginFragment;
 import com.example.pmjewellers.loginRegisterFragments.RegisterFragment;
-import com.google.android.material.navigation.NavigationBarMenu;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity{
         }
     }
     public void Dashboard(){
-        Intent Dashboard = new Intent(getApplicationContext(),MainActivity2.class);
+        Intent Dashboard = new Intent(getApplicationContext(), HomeActivity.class);
         startActivity(Dashboard);
     }
     public void LoginFragment(){

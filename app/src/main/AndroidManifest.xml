@@ -12,7 +12,7 @@
         android:theme="@style/Theme.PMJewellers"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity2"
+            android:name=".HomeActivity"
             android:exported="true"
             android:label="@string/title_activity_main2"
             android:theme="@style/Theme.PMJewellers.NoActionBar">

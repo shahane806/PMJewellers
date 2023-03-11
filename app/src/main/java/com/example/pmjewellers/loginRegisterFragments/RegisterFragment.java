@@ -131,7 +131,7 @@ public class RegisterFragment extends Fragment {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Toast.makeText(getActivity().getApplicationContext(),"Registered Succesfully.",Toast.LENGTH_SHORT).show();
-                                mainActivity.changeFragment("Dashboard");
+
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Toast.makeText(getActivity().getApplicationContext(),"Registered Succesfully.",Toast.LENGTH_SHORT).show();
