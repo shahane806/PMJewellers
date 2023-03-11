@@ -11,7 +11,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ConfirmPassword">ConfirmPassword</string>
-    <string name="backToLogin">Back to login</string>
+    <string name="backToLogin">Click login button to go Login page.</string>
     <string name="BagFragment">BagFragment</string>
     <string name="CategoriesFragment">CategoriesFragment</string>
     <string name="DashboardFragment">DashboardFragment</string>
