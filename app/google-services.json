@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "793930267664",
+    "project_id": "pmjewellers-389a8",
+    "storage_bucket": "pmjewellers-389a8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793930267664:android:75baf8513786ad45f8de95",
+        "android_client_info": {
+          "package_name": "com.example.pmjewellers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "793930267664-78hifg77qh6ra344ukjgr0o5l8a0d7gs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAP_35fje1dfXwJ3-DDcFmg8tBddjsXEkc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "793930267664-78hifg77qh6ra344ukjgr0o5l8a0d7gs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

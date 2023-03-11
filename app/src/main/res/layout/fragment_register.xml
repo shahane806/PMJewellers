@@ -12,97 +12,83 @@
 
         >
 
-    <LinearLayout
-        android:id="@+id/Register"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="33dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="33dp"
-        android:layout_marginBottom="30dp"
-        android:orientation="vertical">
-
-
-
-        <TextView
-            android:id="@+id/RegisterMainHeading"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/Register"
-            android:layout_marginTop="33dp"
-            android:textColor="#13289C"
-            android:textSize="33dp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/RegisterEmailId"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="abc@gmail.com"
-            android:paddingStart="10sp"
-            android:paddingEnd="10sp"
-            android:inputType="textEmailAddress" />
-
-        <EditText
-            android:id="@+id/RegisterPassword"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:paddingStart="10sp"
-            android:paddingEnd="10sp" />
-
-        <EditText
-            android:id="@+id/RegisterConfirmPassword"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="@string/ConfirmPassword"
-            android:inputType="textPersonName"
-            android:paddingStart="10sp"
-            android:layout_marginBottom="33dp"
-            android:paddingEnd="10sp" />
-
-        <Button
-            android:id="@+id/FragmentRegisterRegisterBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="15sp"
-            android:text="@string/Register" />
-
-
-
         <LinearLayout
+            android:id="@+id/Register"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingTop="33dp">
+            android:layout_marginLeft="33dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="33dp"
+            android:layout_marginBottom="30dp"
+            android:orientation="vertical">
+
 
             <TextView
-                android:id="@+id/backToLogin"
+                android:id="@+id/RegisterMainHeading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="33dp"
                 android:gravity="center"
-                android:padding="20sp"
-                android:text="@string/backToLogin"
-                android:textSize="15sp" />
+                android:text="@string/Register"
+                android:textColor="#13289C"
+                android:textSize="33dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/RegisterEmailId"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="abc@gmail.com"
+                android:inputType="textEmailAddress"
+                android:paddingStart="10sp"
+                android:paddingEnd="10sp" />
+
+            <EditText
+                android:id="@+id/RegisterPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingStart="10sp"
+                android:paddingEnd="10sp" />
 
             <Button
-                android:id="@+id/FragmentRegisterLoginBtn"
+                android:id="@+id/FragmentRegisterRegisterBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15sp"
-                android:text="@string/Login" />
+                android:text="@string/Register" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingTop="33dp">
+
+                <TextView
+                    android:id="@+id/backToLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|left"
+                    android:padding="20sp"
+                    android:text="@string/backToLogin"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/FragmentRegisterLoginBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15sp"
+                    android:text="@string/Login" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
     </LinearLayout>
 
