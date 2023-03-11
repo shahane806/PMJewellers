@@ -5,21 +5,21 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.pmjewellers.AlertHandling;
 import com.example.pmjewellers.MainActivity;
 import com.example.pmjewellers.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,8 +37,10 @@ public class RegisterFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     FirebaseAuth register_authentication;
-    EditText email,password;
+    EditText email,password,confirmpassword;
     MainActivity mainActivity;
+    AlertHandling alert;
+    ProgressBar progressBar;
     public RegisterFragment() {
         // Required empty public constructor
     }
@@ -80,9 +82,13 @@ public class RegisterFragment extends Fragment {
 
         View view =  inflater.inflate(R.layout.fragment_register, container, false);
         mainActivity = (MainActivity)getActivity();
+        alert=new AlertHandling(getContext());
+
+        progressBar=(ProgressBar)view.findViewById(R.id.RegisterprogressBar);
 
         email=(EditText)view.findViewById(R.id.RegisterEmailId);
         password=(EditText)view.findViewById(R.id.RegisterPassword);
+        confirmpassword=(EditText)view.findViewById(R.id.ConfirmRegisterPassword);
         register_authentication=FirebaseAuth.getInstance();
         LoginBtn = (Button) view.findViewById(R.id.FragmentRegisterLoginBtn);
         LoginBtn.setOnClickListener(new View.OnClickListener() {
@@ -98,11 +104,11 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                // mainActivity.changeFragment("Dashboard");
-
+                progressBar.setVisibility(View.VISIBLE);
                 //Check Registration Validation
 
-                registration_validation(email.getText().toString(),password.getText().toString());
-//
+                registration_validation(email.getText().toString(),password.getText().toString(),confirmpassword.getText().toString());
+
 
 
             }
@@ -110,20 +116,28 @@ public class RegisterFragment extends Fragment {
         return view;
     }
 
-    private void registration_validation(String email,String password) {
+    private void registration_validation(String email,String password,String confirmpassword) {
 
         if(email.isEmpty())
         {
-            Toast.makeText(getActivity().getApplicationContext(),"ENter EmailId... ",Toast.LENGTH_SHORT).show();
+           alert.emailRequiredDialog();
+            progressBar.setVisibility(View.GONE);
             return;
         }
 
-         if(password.isEmpty())
+         if(password.isEmpty()||confirmpassword.isEmpty())
         {
-            Toast.makeText(getActivity().getApplicationContext(),"ENter Password... ",Toast.LENGTH_SHORT).show();
+           alert.passwordRequiredDialog();
+            progressBar.setVisibility(View.GONE);
             return;
         }
 
+         if(!(password.equals(confirmpassword)))
+        {
+            alert.passwordConfirmationFailedDialog();
+            progressBar.setVisibility(View.GONE);
+            return ;
+        }
             register_authentication.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                         @Override
@@ -131,13 +145,17 @@ public class RegisterFragment extends Fragment {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Toast.makeText(getActivity().getApplicationContext(),"Registered Succesfully.",Toast.LENGTH_SHORT).show();
-
+                                progressBar.setVisibility(View.GONE);
                             } else {
                                 // If sign in fails, display a message to the user.
-                                Toast.makeText(getActivity().getApplicationContext(),"Registered Succesfully.",Toast.LENGTH_SHORT).show();
+                               alert.registrationFailedDialog();
+                                //Toast.makeText(getActivity().getApplicationContext(),"Registered Succesfully.",Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.GONE);
                             }
                         }
                     });
 
     }
+
+
 }
