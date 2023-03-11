@@ -106,6 +106,17 @@ public class LoginFragment extends Fragment {
     }
 
     private void login_validation(String email, String password) {
+        if(email.isEmpty())
+        {
+            Toast.makeText(getActivity().getApplicationContext(),"ENter EmailId... ",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(password.isEmpty())
+        {
+            Toast.makeText(getActivity().getApplicationContext(),"ENter Password... ",Toast.LENGTH_SHORT).show();
+            return;
+        }
         login_authentication.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                     @Override

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
 
+import com.example.pmjewellers.databinding.ActivityHomeBinding;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -17,17 +18,15 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.pmjewellers.databinding.ActivityMain2Binding;
-
 public class HomeActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private ActivityMain2Binding binding;
+    private ActivityHomeBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMain2Binding.inflate(getLayoutInflater());
+        binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
@@ -55,7 +54,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_activity2, menu);
+        getMenuInflater().inflate(R.menu.home_activity, menu);
         return true;
     }
 
