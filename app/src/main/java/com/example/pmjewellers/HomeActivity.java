@@ -6,14 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
-import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.pmjewellers.ui.bag.BagFragment;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -23,7 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.pmjewellers.databinding.ActivityMain2Binding;
 
-public class MainActivity2 extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMain2Binding binding;
@@ -38,7 +34,7 @@ public class MainActivity2 extends AppCompatActivity {
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(MainActivity2.this).setTitle("You Added 0 items").setNeutralButton("Ok",null).show();
+                new AlertDialog.Builder(HomeActivity.this).setTitle("You Added 0 items").setNeutralButton("Ok",null).show();
 
             }
         });
@@ -71,7 +67,7 @@ public class MainActivity2 extends AppCompatActivity {
     }
     @Override
     public void onBackPressed(){
-        new AlertDialog.Builder(MainActivity2.this)
+        new AlertDialog.Builder(HomeActivity.this)
                 .setIcon(R.drawable.warning)
                 .setTitle("Warning !!!")
                 .setMessage("Are you sure to Exit ?")
@@ -87,7 +83,7 @@ public class MainActivity2 extends AppCompatActivity {
                 .setNeutralButton("Help", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(MainActivity2.this, "Press Exit button to close the app, else press Cancel ", Toast.LENGTH_LONG).show();
+                        Toast.makeText(HomeActivity.this, "Press Exit button to close the app, else press Cancel ", Toast.LENGTH_LONG).show();
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
