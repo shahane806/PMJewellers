@@ -4,13 +4,23 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pmjewellers.databinding.ActivityHomeBinding;
+import com.example.pmjewellers.ui.logout.LogoutFragment;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -22,14 +32,26 @@ public class HomeActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeBinding binding;
+    NavigationView navigationView;
+
+    GoogleSignInOptions gso;
+    GoogleSignInClient gsc;
+    TextView UserId,UserEId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        navigationView=findViewById(R.id.nav_view);
+
+
+
+
+
 
         setSupportActionBar(binding.appBarMain.toolbar);
+
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,6 +70,23 @@ public class HomeActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        setHeaderUser();
+    }
+
+    private void setHeaderUser() {
+
+        View headerView = navigationView.getHeaderView(0);
+        TextView userId =(TextView) navigationView.getHeaderView(0).findViewById(R.id.UserID);
+        TextView userEId =(TextView) navigationView.getHeaderView(0).findViewById(R.id.UserEID);
+
+         gso =new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        gsc= GoogleSignIn.getClient(getApplicationContext(),gso);
+        GoogleSignInAccount account =GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+
+        userId.setText("User ID: "+(account.getId()).toString());
+        userEId.setText("Email ID: "+(account.getEmail()).toString());
 
     }
 
@@ -55,7 +94,18 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home_activity, menu);
+
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        if(item.getItemId()==R.id.)
+//        {
+//
+//        }
+        return super.onOptionsItemSelected(item);
+
     }
 
     @Override
@@ -66,30 +116,8 @@ public class HomeActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed(){
-        new AlertDialog.Builder(HomeActivity.this)
-                .setIcon(R.drawable.warning)
-                .setTitle("Warning !!!")
-                .setMessage("Are you sure to Exit ?")
-                .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent a = new Intent(Intent.ACTION_MAIN);
-                        a.addCategory(Intent.CATEGORY_HOME);
-                        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(a);
-                    }
-                })
-                .setNeutralButton("Help", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(HomeActivity.this, "Press Exit button to close the app, else press Cancel ", Toast.LENGTH_LONG).show();
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                    }
-                }).show();
+        AlertHandling alert=new AlertHandling(HomeActivity.this);
+        alert.exitAppAlertDialog();
 
     }
 }

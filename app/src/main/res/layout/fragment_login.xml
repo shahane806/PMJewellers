@@ -93,7 +93,7 @@
                 android:layout_gravity="center"
                 android:layout_marginRight="5sp"
                 android:layout_weight="1"
-                android:backgroundTint="@color/facebookbackgroundColor"
+                android:backgroundTint="#0C25C3"
                 android:drawableLeft="@drawable/facebook"
                 android:padding="15sp"
                 android:text="@string/Facebook"
