@@ -1,6 +1,7 @@
 package com.example.pmjewellers.ui.account;
 
 import android.os.Bundle;
+<<<<<<< HEAD
 
 import androidx.fragment.app.Fragment;
 
@@ -10,6 +11,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.pmjewellers.MainActivity;
+=======
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
+
+>>>>>>> 27eec2a (commit)
 import com.example.pmjewellers.R;
 
 /**
