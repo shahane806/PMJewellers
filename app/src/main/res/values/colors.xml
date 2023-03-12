@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="warning">#FCB926</color>
     <color name="backgroundGradientColor">#BF8609</color>
+    <color name="googlebackgroundColor">#03A9F4</color>
+    <color name="facebookbackgroundColor">#073554</color>
 </resources>

@@ -80,6 +80,8 @@ public class MainActivity extends AppCompatActivity{
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        String x= getApplicationContext().toString();
+                        Toast.makeText(MainActivity.this,x, Toast.LENGTH_SHORT).show();
                     }
                 }).show();
 
