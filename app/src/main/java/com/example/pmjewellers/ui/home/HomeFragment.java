@@ -2,15 +2,28 @@ package com.example.pmjewellers.ui.home;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.Toast;
 
-import com.example.pmjewellers.MainActivity;
 import com.example.pmjewellers.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +40,7 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private StorageReference mstorageReference;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -49,7 +63,8 @@ public class HomeFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
+    private DatabaseReference myref;
+    ArrayList<HomeModel> homeModelArrayList;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,14 +74,60 @@ public class HomeFragment extends Fragment {
         }
     }
 
-
+    HomeFragmentAdapter adapter;
+    RecyclerView recyclerView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
+         recyclerView= view.findViewById(R.id.homeFragmentRecyclerView);
 
+        adapter = new HomeFragmentAdapter(getActivity().getApplicationContext(),homeModelArrayList);
 
-        return view;
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity().getApplicationContext(),DividerItemDecoration.VERTICAL));
+
+        myref = FirebaseDatabase.getInstance().getReference();
+        //get Data from firebase
+
+        
+        ClearAll();
+        GetDataFromFirebase();
+       return view;
     }
+    private void GetDataFromFirebase(){
+        Query query = myref.child("Categories");
+
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ClearAll();
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    HomeModel homeModel = new HomeModel();
+                        homeModel.setImage(snapshot.child("image").getValue().toString());
+                        homeModel.setText(snapshot.child("name").getValue().toString());
+                       homeModelArrayList.add(homeModel);
+                }
+                adapter = new HomeFragmentAdapter(getContext(),homeModelArrayList);
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+    public void ClearAll(){
+        if(homeModelArrayList != null){
+            homeModelArrayList.clear();
+        }
+
+            homeModelArrayList = new ArrayList<>();
+
+    }
+
 }

@@ -169,7 +169,7 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
                 firebaseAuthWithGoogle(account.getIdToken());
             }
             catch(ApiException e){
-
+               e.printStackTrace();
             }
         }
 }

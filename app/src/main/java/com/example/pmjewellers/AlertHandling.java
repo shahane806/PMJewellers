@@ -5,13 +5,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.widget.Toast;
 
+import com.example.pmjewellers.loginRegisterFragments.LoginFragment;
+
 public class AlertHandling {
 
     public Context context;
     public AlertHandling(Context context) {
         this.context =context;
     }
-
     public void emailRequiredDialog() {
         new AlertDialog.Builder(context)
                     .setIcon(R.drawable.error)
