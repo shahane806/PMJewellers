@@ -1,24 +1,17 @@
 package com.example.pmjewellers.ui.home;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.GridLayout;
-import android.widget.Toast;
-
-import com.example.pmjewellers.MainActivity;
 import com.example.pmjewellers.R;
-import com.example.pmjewellers.splashScreenActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,7 +21,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -112,7 +104,7 @@ public class HomeFragment extends Fragment {
 
     };
         thread.start();
-        ClearAll();
+        Clear_homeModelArrayList();
 
 
 
@@ -130,13 +122,13 @@ public class HomeFragment extends Fragment {
 
         linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity().getApplicationContext(),DividerItemDecoration.HORIZONTAL));
+      //  recyclerView.addItemDecoration(new DividerItemDecoration(getActivity().getApplicationContext(),DividerItemDecoration.HORIZONTAL));
 
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ClearAll();
+                Clear_homeModelArrayList();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     HomeModel homeModel = new HomeModel();
                         homeModel.setImage(snapshot.child("image").getValue().toString());
@@ -145,6 +137,7 @@ public class HomeFragment extends Fragment {
                 }
                 adapter = new HomeFragmentAdapter(getContext(),homeModelArrayList);
                 recyclerView.setAdapter(adapter);
+
             }
 
             @Override
@@ -156,6 +149,7 @@ public class HomeFragment extends Fragment {
     }
 
  private void AdBanner(){
+
         Query query = myref.child("AdBanner");
         recyclerView2= view.findViewById(R.id.homeFragmentRecyclerView2);
 
@@ -169,16 +163,17 @@ public class HomeFragment extends Fragment {
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ClearAll2();
+                Clear_adBannerList();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     HomeModel homeModel = new HomeModel();
                         homeModel.setImage(snapshot.child("image").getValue().toString());
                         homeModel.setText(snapshot.child("name").getValue().toString());
 
-                         adBannerList.add(homeModel);
+                    adBannerList.add(homeModel);
                 }
                 bannerFragmentAdapter = new AdBannerFragmentAdapter(getContext(),adBannerList);
                 recyclerView2.setAdapter(bannerFragmentAdapter);
+
             }
 
             @Override
@@ -190,7 +185,7 @@ public class HomeFragment extends Fragment {
     }
 
 
-    public void ClearAll(){
+    public void Clear_homeModelArrayList(){
         if(homeModelArrayList != null){
             homeModelArrayList.clear();
         }
@@ -198,7 +193,7 @@ public class HomeFragment extends Fragment {
         homeModelArrayList = new ArrayList<>();
 
     }
-    public void ClearAll2(){
+    public void Clear_adBannerList(){
         if(adBannerList != null){
             adBannerList.clear();
         }

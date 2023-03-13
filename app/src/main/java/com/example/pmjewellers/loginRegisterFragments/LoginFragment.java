@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -20,7 +21,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -101,6 +101,12 @@ public class LoginFragment extends Fragment {
         email=(EditText)view.findViewById(R.id.LoginEmail);
         password=(EditText)view.findViewById(R.id.LoginPassword);
 
+        facebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(),"This Feature Will Available Soon.",Toast.LENGTH_SHORT).show();
+            }
+        });
 // Google Authentication code.
 
         GoogleSignInOptions gso =new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -154,9 +160,9 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if(requestCode==rc_sign_in)
         {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            //Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try{
-                GoogleSignInAccount account=task.getResult(ApiException.class);
+                //GoogleSignInAccount account=task.getResult(ApiException.class);
                 GoogleSignInAccount accountinfo =GoogleSignIn.getLastSignedInAccount(getContext());
                 String userId = accountinfo.getId().toString();
                 String userEId=accountinfo.getEmail().toString();
@@ -166,8 +172,8 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
                 startActivity(i);
                 //firebaseAuthWithGoogle(account.getIdToken());
             }
-            catch(ApiException e){
-
+            catch(Exception e){
+                Toast.makeText(getContext(),e.toString(),Toast.LENGTH_SHORT).show();;
             }
         }
 }
