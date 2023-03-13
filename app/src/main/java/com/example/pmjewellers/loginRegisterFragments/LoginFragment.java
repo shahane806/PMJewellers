@@ -115,6 +115,13 @@ public class LoginFragment extends Fragment {
         email=(EditText)view.findViewById(R.id.LoginEmail);
         password=(EditText)view.findViewById(R.id.LoginPassword);
 
+        facebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(),"This Feature Will Available Soon.",Toast.LENGTH_SHORT).show();
+            }
+        });
+
 // Google Authentication code
 
         googleLoginButton.setOnClickListener(new View.OnClickListener() {
@@ -175,9 +182,10 @@ public class LoginFragment extends Fragment {
             try{
                 GoogleSignInAccount account=task.getResult(ApiException.class);
                 // here we can fetch loged in accounts information
-
+                GoogleSignInAccount accountinfo =GoogleSignIn.getLastSignedInAccount(getContext());
                 Intent i=new Intent(getContext(), HomeActivity.class);
-
+                i.putExtra("UserId", accountinfo.getId().toString());
+                i.putExtra("UserEId", accountinfo.getEmail().toString());
                 startActivity(i);
             }
             catch(ApiException e){
@@ -210,13 +218,13 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            //Toast.makeText(getActivity().getApplicationContext(), "Login Succesful.", Toast.LENGTH_SHORT).show();
 
                             loginProgressBar.setVisibility(View.GONE);
-                            Intent Dashboard = new Intent(getContext(), HomeActivity.class);
-                            //Dashboard.putExtra("mGSIC",mGoogleSignInClient);
-                            startActivity(Dashboard);
+                            //GoogleSignInAccount accountinfo =GoogleSignIn.getLastSignedInAccount(getContext());
+                            Intent i=new Intent(getContext(), HomeActivity.class);
+                            i.putExtra("UserId", "default");
+                            i.putExtra("UserEId", email);
+                            startActivity(i);
 
                         } else {
                             // If sign in fails, display a message to the user.

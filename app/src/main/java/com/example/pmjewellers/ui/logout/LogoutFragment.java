@@ -13,9 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.content.Intent;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pmjewellers.AlertHandling;
+import com.example.pmjewellers.HomeActivity;
 import com.example.pmjewellers.MainActivity;
 import com.example.pmjewellers.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -43,7 +45,7 @@ public class LogoutFragment extends Fragment {
 
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
-
+    public int check=0;
     public LogoutFragment() {
         // Required empty public constructor
     }
@@ -82,16 +84,16 @@ public class LogoutFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_logout, container, false);
 
-        AlertHandling alert = new AlertHandling(getContext());
-        new AlertDialog.Builder(getActivity().getApplicationContext())
+       // signout();
+        new AlertDialog.Builder(getContext())
                 .setIcon(R.drawable.warning)
                 .setTitle("Confirmation...")
                 .setMessage("Are you sure you want to log out")
                 .setPositiveButton("Logout", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(getContext(),"Logout Failed",Toast.LENGTH_SHORT).show();
                         signout();
+
                     }
                 })
                 .setNeutralButton("Help", new DialogInterface.OnClickListener() {
@@ -107,11 +109,12 @@ public class LogoutFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        Toast.makeText(getContext(),"Logout Failed",Toast.LENGTH_SHORT).show();
-//                        Intent intent=new Intent(context,HomeActivity.class);
-//                        startActivity( context,intent,null);
+                        //Toast.makeText(getContext(),"Logout Failed",Toast.LENGTH_SHORT).show();
+                        Intent intent=new Intent(getContext(), HomeActivity.class);
+                        startActivity(intent);
                     }
                 }).show();
+
         return view;
     }
 
@@ -131,8 +134,8 @@ public class LogoutFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
 
-                //gsc.revokeAccess();
-
+                gsc.revokeAccess();
+                Toast.makeText(getContext(),"Logout Successfully.",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                 }

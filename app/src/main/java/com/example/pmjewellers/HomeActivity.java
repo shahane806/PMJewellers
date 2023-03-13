@@ -19,6 +19,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
@@ -70,7 +71,9 @@ public class HomeActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-        setHeaderUser();
+
+            setHeaderUser();
+
     }
 
     private void setHeaderUser() {
@@ -79,14 +82,20 @@ public class HomeActivity extends AppCompatActivity {
         TextView userId =(TextView) navigationView.getHeaderView(0).findViewById(R.id.UserID);
         TextView userEId =(TextView) navigationView.getHeaderView(0).findViewById(R.id.UserEID);
 
-         gso =new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        gsc= GoogleSignIn.getClient(getApplicationContext(),gso);
-        GoogleSignInAccount account =GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+        Intent i=getIntent();
+        Bundle bundle=i.getExtras();
 
-        userId.setText("User ID: "+(account.getId()).toString());
-        userEId.setText("Email ID: "+(account.getEmail()).toString());
+        String userID= i.getStringExtra("UserId");
+        String userEID= i.getStringExtra("UserEId");
+
+        if(userID.equals("default"))
+        {
+            String[] splitStr=userEID.split("@");
+            userID=splitStr[0];
+        }
+
+        userId.setText("User ID: "+userID);
+        userEId.setText("Email ID: "+userEID);
 
     }
 
