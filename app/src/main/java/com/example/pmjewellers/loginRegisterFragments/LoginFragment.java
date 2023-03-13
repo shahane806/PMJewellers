@@ -1,22 +1,16 @@
 package com.example.pmjewellers.loginRegisterFragments;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.example.pmjewellers.AlertHandling;
 import com.example.pmjewellers.HomeActivity;
@@ -29,11 +23,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,7 +49,7 @@ public class LoginFragment extends Fragment {
     Button facebook,googleLoginButton;
     private static final int rc_sign_in=1;
     private static final String Tag = "GOOGLEAUTH";
-    GoogleSignInClient mGoogleSignInClient;
+    GoogleSignInClient gsc;
 
 
     public LoginFragment() {
@@ -116,12 +107,12 @@ public class LoginFragment extends Fragment {
                 .requestIdToken(getString(R.string.default_web_client_id))
                         .requestEmail()
                                 .build();
-        mGoogleSignInClient= GoogleSignIn.getClient(getActivity().getApplicationContext(),gso);
+        gsc= GoogleSignIn.getClient(getActivity().getApplicationContext(),gso);
 
         googleLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signInByGoogle();
+                googleLoginValidation();
             }
         });
 
@@ -153,8 +144,8 @@ public class LoginFragment extends Fragment {
         return  view;
     }
 
-    private void signInByGoogle() {
-        Intent intent=mGoogleSignInClient.getSignInIntent();
+    private void googleLoginValidation() {
+        Intent intent=gsc.getSignInIntent();
         startActivityForResult(intent,rc_sign_in);
 
     }
@@ -166,7 +157,14 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try{
                 GoogleSignInAccount account=task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account.getIdToken());
+                GoogleSignInAccount accountinfo =GoogleSignIn.getLastSignedInAccount(getContext());
+                String userId = accountinfo.getId();
+                String userEId=accountinfo.getEmail();
+                Intent i=new Intent(getContext(), HomeActivity.class);
+                i.putExtra("UserId", userId);
+                i.putExtra("UserEId", userEId);
+                startActivity(i);
+                //firebaseAuthWithGoogle(account.getIdToken());
             }
             catch(ApiException e){
 
@@ -174,26 +172,26 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
         }
 }
 
-    private void firebaseAuthWithGoogle(String idToken) {
-        AuthCredential credential= GoogleAuthProvider.getCredential(idToken,null);
-        login_authentication.signInWithCredential(credential)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>()
-                                       {
-                                           @Override
-                                           public void onComplete(@NonNull Task<AuthResult> task) {
-                                               if(task.isSuccessful())
-                                               {
-                                                   FirebaseUser user =login_authentication.getCurrentUser();
-                                                   Intent i=new Intent(getContext(), HomeActivity.class);
-                                                   startActivity(i);
-                                               }
-                                               else {
-                                                   Toast.makeText(getContext(),"Failed to Login",Toast.LENGTH_SHORT).show();
-                                               }
-                                           }
-                                       }
-                );
-    }
+//    private void firebaseAuthWithGoogle(String idToken) {
+//        AuthCredential credential= GoogleAuthProvider.getCredential(idToken,null);
+//        login_authentication.signInWithCredential(credential)
+//                .addOnCompleteListener(new OnCompleteListener<AuthResult>()
+//                                       {
+//                                           @Override
+//                                           public void onComplete(@NonNull Task<AuthResult> task) {
+//                                               if(task.isSuccessful())
+//                                               {
+//                                                   FirebaseUser user =login_authentication.getCurrentUser();
+//                                                   Intent i=new Intent(getContext(), HomeActivity.class);
+//                                                   startActivity(i);
+//                                               }
+//                                               else {
+//                                                   Toast.makeText(getContext(),"Failed to Login",Toast.LENGTH_SHORT).show();
+//                                               }
+//                                           }
+//                                       }
+//                );
+//    }
 
     private void login_validation(String email, String password) {
         if(email.isEmpty())
@@ -217,7 +215,10 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
                             // Sign in success, update UI with the signed-in user's information
                             //Toast.makeText(getActivity().getApplicationContext(), "Login Succesful.", Toast.LENGTH_SHORT).show();
                             loginProgressBar.setVisibility(View.GONE);
-                            mainActivity.changeFragment("Dashboard");
+                            Intent i=new Intent(getContext(), HomeActivity.class);
+                            i.putExtra("UserId", "default");
+                            i.putExtra("UserEId", email);
+                            startActivity(i);
 
                         } else {
                             // If sign in fails, display a message to the user.
