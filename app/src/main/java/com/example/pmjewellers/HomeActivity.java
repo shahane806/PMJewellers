@@ -1,40 +1,29 @@
 package com.example.pmjewellers;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Menu;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.pmjewellers.databinding.ActivityHomeBinding;
-import com.example.pmjewellers.ui.bag.BagFragment;
-import com.example.pmjewellers.ui.logout.LogoutFragment;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.pmjewellers.databinding.ActivityHomeBinding;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.material.navigation.NavigationView;
 
 public class HomeActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-
     private ActivityHomeBinding binding;
     NavigationView navigationView;
 
@@ -59,9 +48,7 @@ public class HomeActivity extends AppCompatActivity {
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.nav_home, new BagFragment());
-                fragmentTransaction.commit();
+                new AlertDialog.Builder(HomeActivity.this).setTitle("You Added 0 items").setNeutralButton("Ok",null).show();
 
             }
         });
