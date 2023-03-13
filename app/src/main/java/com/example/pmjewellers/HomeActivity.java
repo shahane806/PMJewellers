@@ -88,11 +88,11 @@ public class HomeActivity extends AppCompatActivity {
         TextView userId =(TextView) navigationView.getHeaderView(0).findViewById(R.id.UserID);
         TextView userEId =(TextView) navigationView.getHeaderView(0).findViewById(R.id.UserEID);
 
-        Intent i=getIntent();
-        Bundle bundle=i.getExtras();
+        Intent intent=getIntent();
+        Bundle bundle=intent.getExtras();
 
-        String userID= i.getStringExtra("UserId");
-        String userEID= i.getStringExtra("UserEId");
+        String userID= intent.getStringExtra("UserId");
+        String userEID= intent.getStringExtra("UserEId");
 
         if(userID.equals("default"))
         {
