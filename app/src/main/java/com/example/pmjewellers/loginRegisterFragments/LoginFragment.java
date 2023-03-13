@@ -158,8 +158,8 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
             try{
                 GoogleSignInAccount account=task.getResult(ApiException.class);
                 GoogleSignInAccount accountinfo =GoogleSignIn.getLastSignedInAccount(getContext());
-                String userId = accountinfo.getId();
-                String userEId=accountinfo.getEmail();
+                String userId = accountinfo.getId().toString();
+                String userEId=accountinfo.getEmail().toString();
                 Intent i=new Intent(getContext(), HomeActivity.class);
                 i.putExtra("UserId", userId);
                 i.putExtra("UserEId", userEId);
