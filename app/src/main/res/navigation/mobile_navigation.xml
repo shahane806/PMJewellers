@@ -48,6 +48,14 @@
     android:menuCategory="secondary"
 
     tools:layout="@layout/fragment_reviews" />
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="com.example.pmjewellers.ui.logout.LogoutFragment"
+        android:label="@string/menu_logout"
+        android:menuCategory="secondary"
 
+        tools:layout="@layout/fragment_logout"
+
+        />
 
 </navigation>
