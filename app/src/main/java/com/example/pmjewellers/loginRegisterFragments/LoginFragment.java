@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -20,7 +19,6 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.pmjewellers.AlertHandling;
-import com.example.pmjewellers.Firbase.Authentication;
 import com.example.pmjewellers.HomeActivity;
 import com.example.pmjewellers.MainActivity;
 import com.example.pmjewellers.R;
@@ -36,8 +34,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-
-import java.io.File;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,10 +56,9 @@ public class LoginFragment extends Fragment {
     MainActivity mainActivity;
     AlertHandling alert;
     Button facebook,googleLoginButton;
-
-    GoogleSignInClient mGoogleSignInClient;
     private static final int rc_sign_in=1;
     private static final String Tag = "GOOGLEAUTH";
+    GoogleSignInClient mGoogleSignInClient;
 
 
     public LoginFragment() {
@@ -115,19 +110,18 @@ public class LoginFragment extends Fragment {
         email=(EditText)view.findViewById(R.id.LoginEmail);
         password=(EditText)view.findViewById(R.id.LoginPassword);
 
-        facebook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(),"This Feature Will Available Soon.",Toast.LENGTH_SHORT).show();
-            }
-        });
+// Google Authentication code.
 
-// Google Authentication code
+        GoogleSignInOptions gso =new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                        .requestEmail()
+                                .build();
+        mGoogleSignInClient= GoogleSignIn.getClient(getActivity().getApplicationContext(),gso);
 
         googleLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                googleAuthentication();
+                signInByGoogle();
             }
         });
 
@@ -147,7 +141,7 @@ public class LoginFragment extends Fragment {
 
                // Check Login Validation
                 loginProgressBar.setVisibility(View.VISIBLE);
-                emailAuthentication(email.getText().toString(),password.getText().toString());
+                login_validation(email.getText().toString(),password.getText().toString());
 
 
 
@@ -159,47 +153,49 @@ public class LoginFragment extends Fragment {
         return  view;
     }
 
-
-
-    public void googleAuthentication() {
-        GoogleSignInOptions gso =new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-
-
-        mGoogleSignInClient = GoogleSignIn.getClient(getContext(),gso);
-
+    private void signInByGoogle() {
         Intent intent=mGoogleSignInClient.getSignInIntent();
         startActivityForResult(intent,rc_sign_in);
-    }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    }
+public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode==rc_sign_in)
         {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try{
                 GoogleSignInAccount account=task.getResult(ApiException.class);
-                // here we can fetch loged in accounts information
-                GoogleSignInAccount accountinfo =GoogleSignIn.getLastSignedInAccount(getContext());
-                Intent i=new Intent(getContext(), HomeActivity.class);
-                i.putExtra("UserId", accountinfo.getId().toString());
-                i.putExtra("UserEId", accountinfo.getEmail().toString());
-                startActivity(i);
+                firebaseAuthWithGoogle(account.getIdToken());
             }
             catch(ApiException e){
-                Toast.makeText(getContext(),"Failed",Toast.LENGTH_LONG).show();
+
             }
         }
+}
 
-        super.onActivityResult(requestCode, resultCode, data);
+    private void firebaseAuthWithGoogle(String idToken) {
+        AuthCredential credential= GoogleAuthProvider.getCredential(idToken,null);
+        login_authentication.signInWithCredential(credential)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>()
+                                       {
+                                           @Override
+                                           public void onComplete(@NonNull Task<AuthResult> task) {
+                                               if(task.isSuccessful())
+                                               {
+                                                   FirebaseUser user =login_authentication.getCurrentUser();
+                                                   Intent i=new Intent(getContext(), HomeActivity.class);
+                                                   startActivity(i);
+                                               }
+                                               else {
+                                                   Toast.makeText(getContext(),"Failed to Login",Toast.LENGTH_SHORT).show();
+                                               }
+                                           }
+                                       }
+                );
     }
 
-
-
-
-    private void emailAuthentication(String email, String password) {
+    private void login_validation(String email, String password) {
         if(email.isEmpty())
         {
             alert.emailRequiredDialog();
@@ -218,13 +214,10 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-
+                            // Sign in success, update UI with the signed-in user's information
+                            //Toast.makeText(getActivity().getApplicationContext(), "Login Succesful.", Toast.LENGTH_SHORT).show();
                             loginProgressBar.setVisibility(View.GONE);
-                            //GoogleSignInAccount accountinfo =GoogleSignIn.getLastSignedInAccount(getContext());
-                            Intent i=new Intent(getContext(), HomeActivity.class);
-                            i.putExtra("UserId", "default");
-                            i.putExtra("UserEId", email);
-                            startActivity(i);
+                            mainActivity.changeFragment("Dashboard");
 
                         } else {
                             // If sign in fails, display a message to the user.
@@ -237,6 +230,4 @@ public class LoginFragment extends Fragment {
                     }
                 });
     }
-
-
 }

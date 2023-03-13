@@ -16,6 +16,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import com.example.pmjewellers.loginRegisterFragments.LoginFragment;
+
 public class AlertHandling {
 
 
@@ -24,7 +26,6 @@ public class AlertHandling {
     public AlertHandling(Context context) {
         this.context =context;
     }
-
     public void emailRequiredDialog() {
         new AlertDialog.Builder(context)
                     .setIcon(R.drawable.error)
