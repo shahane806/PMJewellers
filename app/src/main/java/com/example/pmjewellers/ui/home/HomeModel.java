@@ -1,8 +1,6 @@
 package com.example.pmjewellers.ui.home;
 
-import android.graphics.Bitmap;
-import android.widget.ImageView;
-import android.widget.Toast;
+
 
 public class HomeModel {
     String image;
@@ -10,6 +8,9 @@ public class HomeModel {
     public HomeModel(String image , String text){
         this.image = image;
         this.text = text;
+    }
+    public HomeModel(String image){
+        this.image = image;
     }
     public HomeModel(){
 
@@ -32,3 +33,5 @@ public class HomeModel {
         this.text = text;
     }
 }
+
+

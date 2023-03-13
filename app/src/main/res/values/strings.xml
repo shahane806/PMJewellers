@@ -39,4 +39,5 @@
     <string name="Bag2">Bag</string>
     <string name="UserName">UserName</string>
     <string name="BagIsEmpty">Bag Empty</string>
+    <string name="AdFragment">AdFragment</string>
 </resources>

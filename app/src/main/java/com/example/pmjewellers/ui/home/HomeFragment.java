@@ -1,5 +1,6 @@
 package com.example.pmjewellers.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,13 +8,17 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
 import android.widget.Toast;
 
+import com.example.pmjewellers.MainActivity;
 import com.example.pmjewellers.R;
+import com.example.pmjewellers.splashScreenActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -64,7 +69,8 @@ public class HomeFragment extends Fragment {
         return fragment;
     }
     private DatabaseReference myref;
-    ArrayList<HomeModel> homeModelArrayList;
+    ArrayList<HomeModel> homeModelArrayList,adBannerList;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,30 +81,57 @@ public class HomeFragment extends Fragment {
     }
 
     HomeFragmentAdapter adapter;
+    AdBannerFragmentAdapter bannerFragmentAdapter;
     RecyclerView recyclerView;
+    RecyclerView recyclerView2;
+    LinearLayoutManager linearLayoutManager;
+    View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_home, container, false);
-         recyclerView= view.findViewById(R.id.homeFragmentRecyclerView);
+       view =  inflater.inflate(R.layout.fragment_home, container, false);
+          myref = FirebaseDatabase.getInstance().getReference();
+        //get Data from firebase
+
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                try {
+                    GetGoldCategories();
+                    AdBanner();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    GetGoldCategories();
+                    AdBanner();
+
+                }
+
+            }
+
+    };
+        thread.start();
+        ClearAll();
+
+
+
+       return view;
+    }
+
+
+
+
+    private void GetGoldCategories(){
+        Query query = myref.child("GoldCategories/Bracelets");
+        recyclerView= view.findViewById(R.id.homeFragmentRecyclerView);
 
         adapter = new HomeFragmentAdapter(getActivity().getApplicationContext(),homeModelArrayList);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity().getApplicationContext(),DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity().getApplicationContext(),DividerItemDecoration.HORIZONTAL));
 
-        myref = FirebaseDatabase.getInstance().getReference();
-        //get Data from firebase
-
-        
-        ClearAll();
-        GetDataFromFirebase();
-       return view;
-    }
-    private void GetDataFromFirebase(){
-        Query query = myref.child("Categories");
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -108,7 +141,7 @@ public class HomeFragment extends Fragment {
                     HomeModel homeModel = new HomeModel();
                         homeModel.setImage(snapshot.child("image").getValue().toString());
                         homeModel.setText(snapshot.child("name").getValue().toString());
-                       homeModelArrayList.add(homeModel);
+                         homeModelArrayList.add(homeModel);
                 }
                 adapter = new HomeFragmentAdapter(getContext(),homeModelArrayList);
                 recyclerView.setAdapter(adapter);
@@ -121,12 +154,56 @@ public class HomeFragment extends Fragment {
         });
 
     }
+
+ private void AdBanner(){
+        Query query = myref.child("AdBanner");
+        recyclerView2= view.findViewById(R.id.homeFragmentRecyclerView2);
+
+     bannerFragmentAdapter = new AdBannerFragmentAdapter(getActivity().getApplicationContext(),adBannerList);
+
+        linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
+        recyclerView2.setLayoutManager(linearLayoutManager);
+        recyclerView2.addItemDecoration(new DividerItemDecoration(getActivity().getApplicationContext(),DividerItemDecoration.HORIZONTAL));
+
+
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ClearAll2();
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    HomeModel homeModel = new HomeModel();
+                        homeModel.setImage(snapshot.child("image").getValue().toString());
+                        homeModel.setText(snapshot.child("name").getValue().toString());
+
+                         adBannerList.add(homeModel);
+                }
+                bannerFragmentAdapter = new AdBannerFragmentAdapter(getContext(),adBannerList);
+                recyclerView2.setAdapter(bannerFragmentAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+
     public void ClearAll(){
         if(homeModelArrayList != null){
             homeModelArrayList.clear();
         }
 
-            homeModelArrayList = new ArrayList<>();
+        homeModelArrayList = new ArrayList<>();
+
+    }
+    public void ClearAll2(){
+        if(adBannerList != null){
+            adBannerList.clear();
+        }
+
+    adBannerList = new ArrayList<>();
 
     }
 
