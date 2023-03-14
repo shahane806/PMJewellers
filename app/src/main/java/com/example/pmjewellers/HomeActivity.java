@@ -1,10 +1,7 @@
 package com.example.pmjewellers;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
@@ -22,12 +20,16 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.pmjewellers.databinding.ActivityHomeBinding;
 import com.example.pmjewellers.loginRegisterFragments.LoginFragment;
+import com.example.pmjewellers.ui.account.AccountFragment;
 import com.example.pmjewellers.ui.bag.BagFragment;
+import com.example.pmjewellers.ui.feedback.FeedbackFragment;
 import com.example.pmjewellers.ui.home.HomeFragment;
+import com.example.pmjewellers.ui.logout.LogoutFragment;
+import com.example.pmjewellers.ui.review.ReviewFragment;
+import com.example.pmjewellers.ui.settings.SettingsFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.firestore.auth.User;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -39,7 +41,8 @@ public class HomeActivity extends AppCompatActivity {
     GoogleSignInClient gsc;
     TextView UserId,UserEId;
     static String id = "HomeFragment";
-
+    MenuItem menuItem;
+    BagFragment bagFragment = new BagFragment();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,40 +54,101 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-
-
         setSupportActionBar(binding.appBarMain.toolbar);
-        
+
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 swap();
+            }
+            public void changeFragment(String lastFragment){
+                if(lastFragment.equals("Home"))
+                {
+                    id="HomeFragment";
+                    Toast.makeText(HomeActivity.this, lastFragment, Toast.LENGTH_SHORT).show();
+
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+                    fragmentTransaction.replace(R.id.nav_host_fragment_content_main, new HomeFragment());
+                    fragmentTransaction.commit();
+
+                    Toast.makeText(HomeActivity.this, id, Toast.LENGTH_LONG).show();
+
+                }
+                else if(lastFragment.equals("Settings")){
+                    id="HomeFragment";
+                    Toast.makeText(HomeActivity.this, lastFragment, Toast.LENGTH_SHORT).show();
+
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+                    fragmentTransaction.replace(R.id.nav_host_fragment_content_main, new SettingsFragment());
+                    fragmentTransaction.commit();
+
+                    Toast.makeText(HomeActivity.this, id, Toast.LENGTH_LONG).show();
+                } else if (lastFragment.equals("Logout")) {
+                    id="HomeFragment";
+                    Toast.makeText(HomeActivity.this, lastFragment, Toast.LENGTH_SHORT).show();
+
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+                    fragmentTransaction.replace(R.id.nav_host_fragment_content_main, new LogoutFragment());
+                    fragmentTransaction.commit();
+
+                    Toast.makeText(HomeActivity.this, id, Toast.LENGTH_LONG).show();
+                } else if (lastFragment.equals("Feedback")) {
+                    id="HomeFragment";
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+                    fragmentTransaction.replace(R.id.nav_host_fragment_content_main, new FeedbackFragment());
+                    fragmentTransaction.commit();
+
+                    Toast.makeText(HomeActivity.this, id, Toast.LENGTH_LONG).show();
+                }else if (lastFragment.equals("Reviews")) {
+                    id="HomeFragment";
+                    Toast.makeText(HomeActivity.this, lastFragment, Toast.LENGTH_SHORT).show();
+
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+                    fragmentTransaction.replace(R.id.nav_host_fragment_content_main, new ReviewFragment());
+                    fragmentTransaction.commit();
+
+                    Toast.makeText(HomeActivity.this, id, Toast.LENGTH_LONG).show();
+                }else if (lastFragment.equals("Account")) {
+                    id="HomeFragment";
+                    Toast.makeText(HomeActivity.this, lastFragment, Toast.LENGTH_SHORT).show();
+
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+                    fragmentTransaction.replace(R.id.nav_host_fragment_content_main, new AccountFragment());
+                    fragmentTransaction.commit();
+
+                    Toast.makeText(HomeActivity.this, id, Toast.LENGTH_LONG).show();
+                }
+
 
             }
             public void swap(){
 
               try {
                   if(id == "BagFragment"){
-                      id = "HomeFragment";
-                      FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                      String lastFragment= navigationView.getCheckedItem().toString();
+                      changeFragment(lastFragment);
 
-                      fragmentTransaction.replace(R.id.nav_host_fragment_content_main, new HomeFragment());
-                      fragmentTransaction.commit();
-
-                      Toast.makeText(HomeActivity.this, id, Toast.LENGTH_LONG).show();
 
                   }
                   else if (id == "HomeFragment") {
                       id = "BagFragment";
                       FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-                      fragmentTransaction.replace(R.id.nav_host_fragment_content_main, new BagFragment());
+                      fragmentTransaction.replace(R.id.nav_host_fragment_content_main, bagFragment);
                       fragmentTransaction.commit();
 
                       Toast.makeText(HomeActivity.this, id, Toast.LENGTH_SHORT).show();
 
 
                   }
+
 
               }catch (Exception e){
                   e.printStackTrace();
@@ -111,6 +175,8 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+
+
     private void setHeaderUser() {
 
         View headerView = navigationView.getHeaderView(0);
@@ -119,15 +185,19 @@ public class HomeActivity extends AppCompatActivity {
 
         Intent intent=getIntent();
 
+        //////NEED ONE TIME LOGIN TO SAVE THE DATA ////
 
-        String UserId= intent.getStringExtra("UserId");
-        String userEID= intent.getStringExtra("UserEId");
-
-        if(UserId.equals("default"))
-        {
-            String[] splitStr=userEID.split("@");
-            UserId =splitStr[0];
-        }
+//        String UserId= intent.getStringExtra("UserId");
+//        String userEID= intent.getStringExtra("UserEId");
+//
+//        if(UserId.equals("default"))
+//        {
+//            String[] splitStr=userEID.split("@");
+//            UserId =splitStr[0];
+//        }
+        //////NEED ONE TIME LOGIN TO SAVE THE DATA ////
+        String UserId = "Hello";
+        String userEID = "UserEID";
 
         userId.setText("User ID: "+UserId);
         userEId.setText("Email ID: "+userEID);
@@ -164,4 +234,6 @@ public class HomeActivity extends AppCompatActivity {
         AlertHandling alert=new AlertHandling(HomeActivity.this);
         alert.exitAppAlertDialog();
     }
+
+
 }
