@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity{
         getSupportActionBar().hide();
 
 //        FirebaseAuth mauth = (FirebaseAuth) getSystemService(getContext());
+
         LoginFragment();
 
     }

@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pmjewellers.AlertHandling;
+import com.example.pmjewellers.HomeActivity;
 import com.example.pmjewellers.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -339,5 +341,6 @@ public class HomeFragment extends Fragment {
     adBannerList = new ArrayList<>();
 
     }
+
 
 }

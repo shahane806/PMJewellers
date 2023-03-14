@@ -3,8 +3,102 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp">
 
-    <include layout="@layout/fragment_home" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="WARNINGS!!!"
+        android:textColor="#FF0000"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="74dp"
+        android:gravity="clip_vertical|left"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_marginStart="28dp"
+        android:text="If you logout with account you loss all recent activitys "
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="122dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="To View Current Account data, you have to login with same account" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="29dp"
+        android:layout_height="34dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="74dp"
+        android:gravity="center"
+        android:text="*"
+        android:textColor="#FF0000"
+        android:textSize="34sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="29dp"
+        android:layout_height="34dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="123dp"
+        android:gravity="center"
+        android:text="*"
+        android:textColor="#FF0000"
+        android:textSize="34sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/LogoutBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="171dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/red"
+        android:background="@drawable/transparent2"
+        android:text="LOGOUT" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="240dp"
+        android:layout_height="47dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="172dp"
+        android:layout_marginEnd="6dp"
+        android:layout_toStartOf="@+id/LogoutBtn"
+        android:gravity="center|left"
+        android:paddingLeft="45dp"
+        android:text="Click LOGOUT button to "
+        android:textColor="#008EFF"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 </RelativeLayout>
