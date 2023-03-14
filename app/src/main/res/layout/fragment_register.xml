@@ -103,12 +103,15 @@
                 android:text="@string/backToLogin"
                 android:textSize="12sp" />
 
+
+
             <Button
                 android:id="@+id/FragmentRegisterLoginBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15sp"
                 android:text="@string/Login" />
+
         </LinearLayout>
     </LinearLayout>
 
