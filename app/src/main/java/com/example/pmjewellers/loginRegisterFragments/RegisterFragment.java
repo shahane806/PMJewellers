@@ -127,11 +127,14 @@ public class RegisterFragment extends Fragment {
 
          if(password.isEmpty()||confirmpassword.isEmpty())
         {
-           alert.passwordRequiredDialog();
+            alert.passwordRequiredDialog();
             progressBar.setVisibility(View.GONE);
             return;
         }
-
+        if(password.length()<8){
+            Toast.makeText(getContext(), "Password Must be 8 digits", Toast.LENGTH_SHORT).show();
+        }
+         
          if(!(password.equals(confirmpassword)))
         {
             alert.passwordConfirmationFailedDialog();
