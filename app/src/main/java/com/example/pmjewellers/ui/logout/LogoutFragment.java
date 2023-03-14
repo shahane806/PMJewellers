@@ -1,12 +1,14 @@
 package com.example.pmjewellers.ui.logout;
 
 import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,7 @@ import com.example.pmjewellers.AlertHandling;
 import com.example.pmjewellers.HomeActivity;
 import com.example.pmjewellers.MainActivity;
 import com.example.pmjewellers.R;
+import com.example.pmjewellers.ui.home.HomeFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -77,7 +80,6 @@ public class LogoutFragment extends Fragment {
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -109,10 +111,15 @@ public class LogoutFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        //Toast.makeText(getContext(),"Logout Failed",Toast.LENGTH_SHORT).show();
-                        Intent intent=new Intent(getContext(), HomeActivity.class);
+                        Toast.makeText(getContext(),"Cancel",Toast.LENGTH_SHORT).show();
+
+
+                        Intent intent = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
                         startActivity(intent);
                     }
+
+
+
                 }).show();
 
         return view;
