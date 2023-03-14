@@ -39,8 +39,11 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
-        Glide.with(context).load(homeModelArrayList.get(position).getImage()).centerCrop().into(holder.image);
-        holder.text.setText(homeModelArrayList.get(position).getText());
+        Glide.with(context).load(homeModelArrayList.get(position).getProductImage()).centerCrop().into(holder.ProductImage);
+        holder.ProductName.setText(homeModelArrayList.get(position).getProductName());
+        holder.ProductCategory.setText(homeModelArrayList.get(position).getProductCategory());
+        holder.ProductPrice.setText(homeModelArrayList.get(position).getProductPrice());
+        holder.ProductOffers.setText(homeModelArrayList.get(position).getProductOffer());
     }
 
 
@@ -57,8 +60,8 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
 
 
     public class viewHolder extends RecyclerView.ViewHolder{
-        ImageView image;
-        TextView text;
+        ImageView ProductImage;
+        TextView ProductName,ProductCategory,ProductPrice,ProductOffers;
 
         public viewHolder(@NonNull View itemView) {
 
@@ -67,8 +70,11 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
 
             context  = itemView.getContext();
 
-            image = itemView.findViewById(R.id.homeFragmentImage);
-            text = itemView.findViewById(R.id.homeFragmentText);
+            ProductImage = itemView.findViewById(R.id.ProductImage);
+            ProductName = itemView.findViewById(R.id.ProductName);
+            ProductCategory = itemView.findViewById(R.id.ProductCategory);
+            ProductPrice = itemView.findViewById(R.id.ProductPrice);
+            ProductOffers = itemView.findViewById(R.id.ProductOffers);
 
         }
 

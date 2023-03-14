@@ -3,34 +3,57 @@ package com.example.pmjewellers.ui.home;
 
 
 public class HomeModel {
-    String image;
-    String text;
-    public HomeModel(String image , String text){
-        this.image = image;
-        this.text = text;
+    String ProductImage,ProductName,ProductCategory,ProductOffer,ProductPrice;
+    public HomeModel(String ProductImage , String ProductName, String ProductCategory,String ProductOffer,String ProductPrice){
+        this.ProductImage = ProductImage;
+        this.ProductName = ProductName;
+        this.ProductCategory = ProductCategory;
+        this.ProductOffer = ProductOffer;
+        this.ProductPrice = ProductPrice;
     }
     public HomeModel(String image){
-        this.image = image;
-    }
-    public HomeModel(){
-
-    }
-    public String getImage() {
-        return image;
-
+        this.ProductImage = image;
     }
 
-    public void setImage(String image) {
+    public HomeModel(){}
 
-        this.image = image;
+    public String getProductCategory() {
+        return ProductCategory;
     }
 
-    public String getText() {
-        return text;
+    public String getProductPrice() {
+        return ProductPrice;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setProductPrice(String productPrice) {
+        ProductPrice = productPrice;
+    }
+
+    public void setProductCategory(String productCategory) {
+        ProductCategory = productCategory;
+    }
+
+    public String getProductImage() {
+        return ProductImage;
+    }
+
+    public void setProductImage(String productImage) {
+        ProductImage = productImage;
+    }
+
+    public String getProductName() {
+        return ProductName;
+    }
+
+    public void setProductName(String productName) {
+        ProductName = productName;
+    }
+    public void setProductOffer(String productOffer){
+        ProductOffer = productOffer;
+    }
+
+    public String getProductOffer() {
+        return ProductOffer;
     }
 }
 

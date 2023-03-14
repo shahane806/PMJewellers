@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.pmjewellers.R;
 import com.google.firebase.database.DataSnapshot;
@@ -61,7 +63,7 @@ public class HomeFragment extends Fragment {
         return fragment;
     }
     private DatabaseReference myref;
-    ArrayList<HomeModel> homeModelArrayList,adBannerList;
+    ArrayList<HomeModel> homeModelArrayList,adBannerList,homeModelArrayList2,homeModelArrayList3;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,9 +75,12 @@ public class HomeFragment extends Fragment {
     }
 
     HomeFragmentAdapter adapter;
+    HomeFragmentAdapterTwo adapter2;
+    HomeFragmentAdapterThree adapter3;
     AdBannerFragmentAdapter bannerFragmentAdapter;
-    RecyclerView recyclerView;
-    RecyclerView recyclerView2;
+
+    RecyclerView recyclerView,recyclerView2,recyclerView3,recyclerView4,recyclerView5;
+
     LinearLayoutManager linearLayoutManager;
     View view;
     @Override
@@ -90,12 +95,16 @@ public class HomeFragment extends Fragment {
             @Override
             public void run() {
                 try {
-                    GetGoldCategories();
+                    GetGoldCategoriesBracelets();
+                    GetGoldCategoriesNecklace();
+                    GetGoldCategoriesRings();
                     AdBanner();
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    GetGoldCategories();
+                    GetGoldCategoriesBracelets();
+                    GetGoldCategoriesNecklace();
+                    GetGoldCategoriesRings();
                     AdBanner();
 
                 }
@@ -105,16 +114,34 @@ public class HomeFragment extends Fragment {
     };
         thread.start();
         Clear_homeModelArrayList();
-
-
+        Clear_adBannerList();
+        Clear_homeModelArrayListTwo();
+        Clear_homeModelArrayListThree();
 
        return view;
     }
 
+    //***************************************************  WORKING ON CART  *********************//
 
 
+//    Button addToCart;
+//    ArrayList<Cart> cartArrayList;
+//    public ArrayList<Cart> AddToCart(){
+//        addToCart = view.findViewById(R.id.addToCart);
+//
+//        addToCart.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//
+//            }
+//        });
+//        return ArrayList<Cart>;
+//    }
+//
+    //***************************************************  WORKING ON CART  *********************//
 
-    private void GetGoldCategories(){
+    private void GetGoldCategoriesBracelets(){
         Query query = myref.child("GoldCategories/Bracelets");
         recyclerView= view.findViewById(R.id.homeFragmentRecyclerView);
 
@@ -131,8 +158,13 @@ public class HomeFragment extends Fragment {
                 Clear_homeModelArrayList();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     HomeModel homeModel = new HomeModel();
-                        homeModel.setImage(snapshot.child("image").getValue().toString());
-                        homeModel.setText(snapshot.child("name").getValue().toString());
+
+                        homeModel.setProductImage(snapshot.child("ProductImage").getValue().toString());
+                        homeModel.setProductName(snapshot.child("ProductName").getValue().toString());
+                        homeModel.setProductCategory(snapshot.child("ProductCategory").getValue().toString());
+                        homeModel.setProductOffer(snapshot.child("ProductOffer").getValue().toString());
+                        homeModel.setProductPrice(snapshot.child("ProductPrice").getValue().toString());
+
                          homeModelArrayList.add(homeModel);
                 }
                 adapter = new HomeFragmentAdapter(getContext(),homeModelArrayList);
@@ -147,8 +179,82 @@ public class HomeFragment extends Fragment {
         });
 
     }
+    private void GetGoldCategoriesRings(){
+        Query query = myref.child("GoldCategories/Rings");
+        recyclerView4= view.findViewById(R.id.homeFragmentRecyclerView4);
 
- private void AdBanner(){
+        adapter3 = new HomeFragmentAdapterThree(getActivity().getApplicationContext(),homeModelArrayList3);
+
+        linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
+        recyclerView4.setLayoutManager(linearLayoutManager);
+      //  recyclerView.addItemDecoration(new DividerItemDecoration(getActivity().getApplicationContext(),DividerItemDecoration.HORIZONTAL));
+
+
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Clear_homeModelArrayList();
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    HomeModel homeModel = new HomeModel();
+
+                        homeModel.setProductImage(snapshot.child("ProductImage").getValue().toString());
+                        homeModel.setProductName(snapshot.child("ProductName").getValue().toString());
+                        homeModel.setProductCategory(snapshot.child("ProductCategory").getValue().toString());
+                        homeModel.setProductOffer(snapshot.child("ProductOffer").getValue().toString());
+                        homeModel.setProductPrice(snapshot.child("ProductPrice").getValue().toString());
+
+                         homeModelArrayList3.add(homeModel);
+                }
+                adapter3 = new HomeFragmentAdapterThree(getContext(),homeModelArrayList3);
+                recyclerView4.setAdapter(adapter3);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+    private void GetGoldCategoriesNecklace(){
+        Query query = myref.child("GoldCategories/Necklace");
+        recyclerView3= view.findViewById(R.id.homeFragmentRecyclerView3);
+
+        adapter2 = new HomeFragmentAdapterTwo(getActivity().getApplicationContext(),homeModelArrayList2);
+
+        linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
+        recyclerView3.setLayoutManager(linearLayoutManager);
+        //  recyclerView.addItemDecoration(new DividerItemDecoration(getActivity().getApplicationContext(),DividerItemDecoration.HORIZONTAL));
+
+
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Clear_homeModelArrayListTwo();
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    HomeModel homeModel = new HomeModel();
+
+                    homeModel.setProductImage(snapshot.child("ProductImage").getValue().toString());
+                    homeModel.setProductName(snapshot.child("ProductName").getValue().toString());
+                    homeModel.setProductCategory(snapshot.child("ProductCategory").getValue().toString());
+                    homeModel.setProductOffer(snapshot.child("ProductOffer").getValue().toString());
+                    homeModel.setProductPrice(snapshot.child("ProductPrice").getValue().toString());
+
+                    homeModelArrayList2.add(homeModel);
+                }
+                adapter2 = new HomeFragmentAdapterTwo(getContext(),homeModelArrayList2);
+                recyclerView3.setAdapter(adapter2);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private void AdBanner(){
 
         Query query = myref.child("AdBanner");
         recyclerView2= view.findViewById(R.id.homeFragmentRecyclerView2);
@@ -166,8 +272,8 @@ public class HomeFragment extends Fragment {
                 Clear_adBannerList();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     HomeModel homeModel = new HomeModel();
-                        homeModel.setImage(snapshot.child("image").getValue().toString());
-                        homeModel.setText(snapshot.child("name").getValue().toString());
+                        homeModel.setProductImage(snapshot.child("image").getValue().toString());
+                        homeModel.setProductName(snapshot.child("name").getValue().toString());
 
                     adBannerList.add(homeModel);
                 }
@@ -191,6 +297,22 @@ public class HomeFragment extends Fragment {
         }
 
         homeModelArrayList = new ArrayList<>();
+
+    }
+    public void Clear_homeModelArrayListTwo(){
+        if(homeModelArrayList2 != null){
+            homeModelArrayList2.clear();
+        }
+
+        homeModelArrayList2 = new ArrayList<>();
+
+    }
+    public void Clear_homeModelArrayListThree(){
+        if(homeModelArrayList3 != null){
+            homeModelArrayList3.clear();
+        }
+
+        homeModelArrayList3 = new ArrayList<>();
 
     }
     public void Clear_adBannerList(){

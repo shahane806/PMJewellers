@@ -3,23 +3,31 @@ package com.example.pmjewellers;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.pmjewellers.databinding.ActivityHomeBinding;
+import com.example.pmjewellers.loginRegisterFragments.LoginFragment;
+import com.example.pmjewellers.ui.bag.BagFragment;
+import com.example.pmjewellers.ui.home.HomeFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.auth.User;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -30,6 +38,8 @@ public class HomeActivity extends AppCompatActivity {
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
     TextView UserId,UserEId;
+    static String id = "HomeFragment";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,14 +54,46 @@ public class HomeActivity extends AppCompatActivity {
 
 
         setSupportActionBar(binding.appBarMain.toolbar);
-
+        
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(HomeActivity.this).setTitle("You Added 0 items").setNeutralButton("Ok",null).show();
+                swap();
 
             }
+            public void swap(){
+
+              try {
+                  if(id == "BagFragment"){
+                      id = "HomeFragment";
+                      FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+                      fragmentTransaction.replace(R.id.nav_host_fragment_content_main, new HomeFragment());
+                      fragmentTransaction.commit();
+
+                      Toast.makeText(HomeActivity.this, id, Toast.LENGTH_LONG).show();
+
+                  }
+                  else if (id == "HomeFragment") {
+                      id = "BagFragment";
+                      FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+                      fragmentTransaction.replace(R.id.nav_host_fragment_content_main, new BagFragment());
+                      fragmentTransaction.commit();
+
+                      Toast.makeText(HomeActivity.this, id, Toast.LENGTH_SHORT).show();
+
+
+                  }
+
+              }catch (Exception e){
+                  e.printStackTrace();
+              }
+
+            }
+
         });
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -76,18 +118,18 @@ public class HomeActivity extends AppCompatActivity {
         TextView userEId =(TextView) navigationView.getHeaderView(0).findViewById(R.id.UserEID);
 
         Intent intent=getIntent();
-        Bundle bundle=intent.getExtras();
 
-        String userID= intent.getStringExtra("UserId");
+
+        String UserId= intent.getStringExtra("UserId");
         String userEID= intent.getStringExtra("UserEId");
 
-        if(userID.equals("default"))
+        if(UserId.equals("default"))
         {
             String[] splitStr=userEID.split("@");
-            userID=splitStr[0];
+            UserId =splitStr[0];
         }
 
-        userId.setText("User ID: "+userID);
+        userId.setText("User ID: "+UserId);
         userEId.setText("Email ID: "+userEID);
 
     }
@@ -118,8 +160,8 @@ public class HomeActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed(){
+
         AlertHandling alert=new AlertHandling(HomeActivity.this);
         alert.exitAppAlertDialog();
-
     }
 }

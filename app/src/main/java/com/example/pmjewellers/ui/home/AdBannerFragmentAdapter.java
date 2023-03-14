@@ -35,8 +35,8 @@ public class AdBannerFragmentAdapter extends RecyclerView.Adapter<AdBannerFragme
 
     @Override
     public void onBindViewHolder(@NonNull AdBannerFragmentAdapter.ViewHolder holder, int position) {
-        Glide.with(context).load(homeModelArrayList.get(position).getImage()).centerCrop().into(holder.image);
-        holder.text.setText(homeModelArrayList.get(position).getText());
+        Glide.with(context).load(homeModelArrayList.get(position).getProductImage()).centerCrop().into(holder.image);
+        holder.text.setText(homeModelArrayList.get(position).getProductName());
     }
 
     @Override

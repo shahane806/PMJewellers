@@ -21,10 +21,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -141,7 +145,6 @@ public class LoginFragment extends Fragment {
                 login_validation(email.getText().toString(),password.getText().toString());
 
 
-
             }
         });
 
@@ -160,44 +163,44 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if(requestCode==rc_sign_in)
         {
-            //Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try{
-                //GoogleSignInAccount account=task.getResult(ApiException.class);
-                GoogleSignInAccount accountinfo =GoogleSignIn.getLastSignedInAccount(getContext());
-                String userId = accountinfo.getId().toString();
-                String userEId=accountinfo.getEmail().toString();
-                Intent i=new Intent(getContext(), HomeActivity.class);
-                i.putExtra("UserId", userId);
-                i.putExtra("UserEId", userEId);
-                startActivity(i);
-                //firebaseAuthWithGoogle(account.getIdToken());
+                GoogleSignInAccount account=task.getResult(ApiException.class);
+               account.getIdToken();
+                firebaseAuthWithGoogle(account.getIdToken());
             }
-            catch(Exception e){
-                Toast.makeText(getContext(),e.toString(),Toast.LENGTH_SHORT).show();;
+            catch(ApiException e){
+                Toast.makeText(getContext(),e.toString(),Toast.LENGTH_LONG).show();;
             }
         }
 }
 
-//    private void firebaseAuthWithGoogle(String idToken) {
-//        AuthCredential credential= GoogleAuthProvider.getCredential(idToken,null);
-//        login_authentication.signInWithCredential(credential)
-//                .addOnCompleteListener(new OnCompleteListener<AuthResult>()
-//                                       {
-//                                           @Override
-//                                           public void onComplete(@NonNull Task<AuthResult> task) {
-//                                               if(task.isSuccessful())
-//                                               {
-//                                                   FirebaseUser user =login_authentication.getCurrentUser();
-//                                                   Intent i=new Intent(getContext(), HomeActivity.class);
-//                                                   startActivity(i);
-//                                               }
-//                                               else {
-//                                                   Toast.makeText(getContext(),"Failed to Login",Toast.LENGTH_SHORT).show();
-//                                               }
-//                                           }
-//                                       }
-//                );
-//    }
+    private void firebaseAuthWithGoogle(String idToken) {
+        AuthCredential credential= GoogleAuthProvider.getCredential(idToken,null);
+        login_authentication.signInWithCredential(credential)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>()
+                                       {
+                                           @Override
+                                           public void onComplete(@NonNull Task<AuthResult> task) {
+                                               if(task.isSuccessful())
+                                               {
+                                                   FirebaseUser user =login_authentication.getCurrentUser();
+                                                   GoogleSignInAccount accountinfo =GoogleSignIn.getLastSignedInAccount(getContext());
+                                                   String userId = accountinfo.getId().toString();
+                                                   String userEId=accountinfo.getEmail().toString();
+                                                   Intent i=new Intent(getContext(), HomeActivity.class);
+                                                   i.putExtra("UserId", userId);
+                                                   i.putExtra("UserEId", userEId);
+                                                   startActivity(i);
+                                               }
+                                               else {
+                                                   Toast.makeText(getContext(),"Failed to Login",Toast.LENGTH_SHORT).show();
+                                               }
+                                           }
+                                       }
+                );
+    }
 
     private void login_validation(String email, String password) {
         if(email.isEmpty())

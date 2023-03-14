@@ -12,6 +12,12 @@
         android:menuCategory="secondary"
 
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/fab"
+        android:name="com.example.pmjewellers.ui.bag.BagFragment"
+        android:menuCategory="secondary"
+
+        tools:layout="@layout/fragment_bag" />
 <fragment
         android:id="@+id/nav_bag"
         android:name="com.example.pmjewellers.ui.bag.BagFragment"
