@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
@@ -19,7 +18,6 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.pmjewellers.databinding.ActivityHomeBinding;
-import com.example.pmjewellers.loginRegisterFragments.LoginFragment;
 import com.example.pmjewellers.ui.account.AccountFragment;
 import com.example.pmjewellers.ui.bag.BagFragment;
 import com.example.pmjewellers.ui.feedback.FeedbackFragment;
@@ -214,10 +212,12 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        if(item.getItemId()==R.id.)
-//        {
-//
-//        }
+        if(item.getItemId()==R.id.action_logout)
+        {
+            Toast.makeText(getApplicationContext(),"clicked",Toast.LENGTH_SHORT).show();
+
+
+        }
         return super.onOptionsItemSelected(item);
 
     }
@@ -234,6 +234,8 @@ public class HomeActivity extends AppCompatActivity {
         AlertHandling alert=new AlertHandling(HomeActivity.this);
         alert.exitAppAlertDialog();
     }
+
+
 
 
 }

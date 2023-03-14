@@ -2,14 +2,11 @@
 
 package com.example.pmjewellers;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.pmjewellers.loginRegisterFragments.LoginFragment;
 import com.example.pmjewellers.loginRegisterFragments.RegisterFragment;
@@ -22,6 +19,8 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
+
+//        FirebaseAuth mauth = (FirebaseAuth) getSystemService(getContext());
 
         LoginFragment();
 

@@ -1,14 +1,22 @@
 package com.example.pmjewellers;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class splashScreenActivity extends AppCompatActivity {
+
+    FirebaseAuth mauth;
+    GoogleSignInOptions gso;
+    GoogleSignInClient gsc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +31,20 @@ public class splashScreenActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    Intent loginActivity = new Intent(splashScreenActivity.this, MainActivity.class);
-                    startActivity(loginActivity);
+//                    mauth=FirebaseAuth.getInstance();
+//                    if(mauth!=null){
+//                        GoogleSignInAccount accountinfo = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+//                        String userId = accountinfo.getId().toString();
+//                        String userEId=accountinfo.getEmail().toString();
+//                        Intent i=new Intent(getApplicationContext(), HomeActivity.class);
+//                        i.putExtra("UserId", userId);
+//                        i.putExtra("UserEId", userEId);
+//                        startActivity(i);
+//                    }
+//                    {
+                        Intent loginActivity = new Intent(splashScreenActivity.this, MainActivity.class);
+                        startActivity(loginActivity);
+//                    }
                 }
 
             }

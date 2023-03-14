@@ -1,28 +1,20 @@
 package com.example.pmjewellers.ui.logout;
 
 import android.app.AlertDialog;
-import android.app.FragmentTransaction;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.content.Intent;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pmjewellers.AlertHandling;
-import com.example.pmjewellers.HomeActivity;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import com.example.pmjewellers.MainActivity;
 import com.example.pmjewellers.R;
-import com.example.pmjewellers.ui.home.HomeFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -45,9 +37,10 @@ public class LogoutFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
+    Button logoutBtn;
+
     public int check=0;
     public LogoutFragment() {
         // Required empty public constructor
@@ -80,51 +73,50 @@ public class LogoutFragment extends Fragment {
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_logout, container, false);
-
+        logoutBtn=(Button) view.findViewById(R.id.LogoutBtn);
        // signout();
-        new AlertDialog.Builder(getContext())
-                .setIcon(R.drawable.warning)
-                .setTitle("Confirmation...")
-                .setMessage("Are you sure you want to log out")
-                .setPositiveButton("Logout", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        signout();
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(getContext())
+                        .setIcon(R.drawable.warning)
+                        .setTitle("Confirmation...")
+                        .setMessage("Are you sure you want to log out")
+                        .setPositiveButton("Logout", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                signout();
 
-                    }
-                })
-                .setNeutralButton("Help", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                            }
+                        })
+                        .setNeutralButton("Help", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
 
-                        //Add Information fregment
+                                //Add Information fregment
 
-                        Toast.makeText(getContext(), "Help fregment will available  soon", Toast.LENGTH_LONG).show();
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                        Toast.makeText(getContext(),"Cancel",Toast.LENGTH_SHORT).show();
-
-
-                        Intent intent = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
-                        startActivity(intent);
-                    }
+                                Toast.makeText(getContext(), "Help Feature will available  soon", Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Toast.makeText(getContext(), "Logout Canceled.", Toast.LENGTH_LONG).show();
+                            }
+                        }).show();
+            }
+        });
 
 
-
-                }).show();
 
         return view;
     }
-
     private void signout() {
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -143,9 +135,9 @@ public class LogoutFragment extends Fragment {
 
                 gsc.revokeAccess();
                 Toast.makeText(getContext(),"Logout Successfully.",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
+            }
 
         });
     }
