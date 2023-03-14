@@ -21,7 +21,6 @@
             android:id="@+id/nav_settings"
             android:icon="@drawable/settingsicon"
             android:title="@string/menu_settings" />
-        <menu >
 
             <item
                 android:id="@+id/nav_logout"
@@ -36,7 +35,6 @@
                 android:icon="@drawable/rating"
                 android:textColor="@color/white"
                 android:title="@string/menu_reviews" />
-        </menu>
     </group>
 
 
