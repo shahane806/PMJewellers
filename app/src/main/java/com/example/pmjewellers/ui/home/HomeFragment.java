@@ -4,14 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.pmjewellers.R;
 import com.google.firebase.database.DataSnapshot;
@@ -157,7 +155,8 @@ public class HomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Clear_homeModelArrayList();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    HomeModel homeModel = new HomeModel();
+
+                        HomeModel homeModel = new HomeModel();
 
                         homeModel.setProductImage(snapshot.child("ProductImage").getValue().toString());
                         homeModel.setProductName(snapshot.child("ProductName").getValue().toString());
@@ -165,7 +164,8 @@ public class HomeFragment extends Fragment {
                         homeModel.setProductOffer(snapshot.child("ProductOffer").getValue().toString());
                         homeModel.setProductPrice(snapshot.child("ProductPrice").getValue().toString());
 
-                         homeModelArrayList.add(homeModel);
+                        homeModelArrayList.add(homeModel);
+
                 }
                 adapter = new HomeFragmentAdapter(getContext(),homeModelArrayList);
                 recyclerView.setAdapter(adapter);

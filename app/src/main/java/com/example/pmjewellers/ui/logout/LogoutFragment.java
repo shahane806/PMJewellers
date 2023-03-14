@@ -1,23 +1,17 @@
 package com.example.pmjewellers.ui.logout;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.content.Intent;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.pmjewellers.AlertHandling;
-import com.example.pmjewellers.HomeActivity;
 import com.example.pmjewellers.MainActivity;
 import com.example.pmjewellers.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -110,8 +104,8 @@ public class LogoutFragment extends Fragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                         //Toast.makeText(getContext(),"Logout Failed",Toast.LENGTH_SHORT).show();
-                        Intent intent=new Intent(getContext(), HomeActivity.class);
-                        startActivity(intent);
+//                        Intent intent=new Intent(getContext(), HomeActivity.class);
+//                        startActivity(intent);
                     }
                 }).show();
 
