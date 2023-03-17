@@ -167,7 +167,7 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try{
                 GoogleSignInAccount account=task.getResult(ApiException.class);
-               account.getIdToken();
+                account.getIdToken();
                 firebaseAuthWithGoogle(account.getIdToken());
             }
             catch(ApiException e){

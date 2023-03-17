@@ -38,6 +38,7 @@ public class HomeActivity extends AppCompatActivity {
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
     TextView UserId,UserEId;
+     static String lastFragment;
     static String id = "HomeFragment";
     MenuItem menuItem;
     BagFragment bagFragment = new BagFragment();
@@ -64,64 +65,52 @@ public class HomeActivity extends AppCompatActivity {
                 if(lastFragment.equals("Home"))
                 {
                     id="HomeFragment";
-                    Toast.makeText(HomeActivity.this, lastFragment, Toast.LENGTH_SHORT).show();
 
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
                     fragmentTransaction.replace(R.id.nav_host_fragment_content_main, new HomeFragment());
                     fragmentTransaction.commit();
 
-                    Toast.makeText(HomeActivity.this, id, Toast.LENGTH_LONG).show();
 
                 }
                 else if(lastFragment.equals("Settings")){
                     id="HomeFragment";
-                    Toast.makeText(HomeActivity.this, lastFragment, Toast.LENGTH_SHORT).show();
+
 
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
                     fragmentTransaction.replace(R.id.nav_host_fragment_content_main, new SettingsFragment());
                     fragmentTransaction.commit();
 
-                    Toast.makeText(HomeActivity.this, id, Toast.LENGTH_LONG).show();
                 } else if (lastFragment.equals("Logout")) {
                     id="HomeFragment";
-                    Toast.makeText(HomeActivity.this, lastFragment, Toast.LENGTH_SHORT).show();
-
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
                     fragmentTransaction.replace(R.id.nav_host_fragment_content_main, new LogoutFragment());
                     fragmentTransaction.commit();
 
-                    Toast.makeText(HomeActivity.this, id, Toast.LENGTH_LONG).show();
                 } else if (lastFragment.equals("Feedback")) {
                     id="HomeFragment";
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
                     fragmentTransaction.replace(R.id.nav_host_fragment_content_main, new FeedbackFragment());
                     fragmentTransaction.commit();
-
-                    Toast.makeText(HomeActivity.this, id, Toast.LENGTH_LONG).show();
                 }else if (lastFragment.equals("Reviews")) {
                     id="HomeFragment";
-                    Toast.makeText(HomeActivity.this, lastFragment, Toast.LENGTH_SHORT).show();
 
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
                     fragmentTransaction.replace(R.id.nav_host_fragment_content_main, new ReviewFragment());
                     fragmentTransaction.commit();
 
-                    Toast.makeText(HomeActivity.this, id, Toast.LENGTH_LONG).show();
                 }else if (lastFragment.equals("Account")) {
                     id="HomeFragment";
-                    Toast.makeText(HomeActivity.this, lastFragment, Toast.LENGTH_SHORT).show();
 
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
                     fragmentTransaction.replace(R.id.nav_host_fragment_content_main, new AccountFragment());
                     fragmentTransaction.commit();
 
-                    Toast.makeText(HomeActivity.this, id, Toast.LENGTH_LONG).show();
                 }
 
 
@@ -130,7 +119,8 @@ public class HomeActivity extends AppCompatActivity {
 
               try {
                   if(id == "BagFragment"){
-                      String lastFragment= navigationView.getCheckedItem().toString();
+                      lastFragment= navigationView.getCheckedItem().toString();
+
                       changeFragment(lastFragment);
 
 
@@ -185,17 +175,16 @@ public class HomeActivity extends AppCompatActivity {
 
         //////NEED ONE TIME LOGIN TO SAVE THE DATA ////
 
-//        String UserId= intent.getStringExtra("UserId");
-//        String userEID= intent.getStringExtra("UserEId");
-//
-//        if(UserId.equals("default"))
-//        {
-//            String[] splitStr=userEID.split("@");
-//            UserId =splitStr[0];
-//        }
+        String UserId= intent.getStringExtra("UserId");
+        String userEID= intent.getStringExtra("UserEId");
+
+        if(UserId.equals("default"))
+        {
+            String[] splitStr=userEID.split("@");
+            UserId =splitStr[0];
+        }
         //////NEED ONE TIME LOGIN TO SAVE THE DATA ////
-        String UserId = "Hello";
-        String userEID = "UserEID";
+
 
         userId.setText("User ID: "+UserId);
         userEId.setText("Email ID: "+userEID);
@@ -231,11 +220,44 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public void onBackPressed(){
 
-        AlertHandling alert=new AlertHandling(HomeActivity.this);
-        alert.exitAppAlertDialog();
+        if(navigationView.getCheckedItem().toString().equals("Home")){
+            AlertHandling alert=new AlertHandling(HomeActivity.this);
+            alert.exitAppAlertDialog();
+        }
+        else{
+            super.onBackPressed();
+        }
+
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 
 }

@@ -8,32 +8,39 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/homeicon"
+            android:menuCategory="secondary"
             android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_bag"
             android:icon="@drawable/bagicon2"
+            android:menuCategory="secondary"
             android:title="@string/menu_bag" />
         <item
             android:id="@+id/nav_account"
             android:icon="@drawable/accounticon"
+            android:menuCategory="secondary"
             android:title="@string/menu_account" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/settingsicon"
+            android:menuCategory="secondary"
             android:title="@string/menu_settings" />
 
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/logouticon"
+                android:menuCategory="secondary"
                 android:title="@string/menu_logout" />
             <item
                 android:id="@+id/nav_feedback"
                 android:icon="@drawable/feedbackicon"
+                android:menuCategory="secondary"
                 android:title="@string/menu_feedback" />
             <item
                 android:id="@+id/nav_review"
                 android:icon="@drawable/rating"
                 android:textColor="@color/white"
+                android:menuCategory="secondary"
                 android:title="@string/menu_reviews" />
     </group>
 

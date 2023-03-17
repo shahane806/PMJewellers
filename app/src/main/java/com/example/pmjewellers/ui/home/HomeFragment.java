@@ -125,21 +125,7 @@ public class HomeFragment extends Fragment {
     //***************************************************  WORKING ON CART  *********************//
 
 
-//    Button addToCart;
-//    ArrayList<Cart> cartArrayList;
-//    public ArrayList<Cart> AddToCart(){
-//        addToCart = view.findViewById(R.id.addToCart);
-//
-//        addToCart.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//
-//            }
-//        });
-//        return ArrayList<Cart>;
-//    }
-//
+
     //***************************************************  WORKING ON CART  *********************//
 
     @Override
@@ -277,7 +263,7 @@ public class HomeFragment extends Fragment {
         Query query = myref.child("AdBanner");
         recyclerView2= view.findViewById(R.id.homeFragmentRecyclerView2);
 
-     bannerFragmentAdapter = new AdBannerFragmentAdapter(getActivity().getApplicationContext(),adBannerList);
+        bannerFragmentAdapter = new AdBannerFragmentAdapter(getActivity().getApplicationContext(),adBannerList);
 
         linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
         recyclerView2.setLayoutManager(linearLayoutManager);

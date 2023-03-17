@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Button;
 
 import com.example.pmjewellers.MainActivity;
@@ -59,13 +60,17 @@ public class ReviewFragment extends Fragment {
         }
     }
 
-
+    WebView webView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_reviews, container, false);
+        webView = view.findViewById(R.id.ReviewWebView);
+        webView.getSettings().setJavaScriptEnabled(true);
 
+        webView.loadUrl("https://g.page/r/CSYOI_0CSQp4EBM/review");
+        webView.setWebViewClient(new webController());
 
         return view;
     }
