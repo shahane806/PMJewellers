@@ -20,14 +20,19 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.pmjewellers.databinding.ActivityHomeBinding;
 import com.example.pmjewellers.ui.account.AccountFragment;
 import com.example.pmjewellers.ui.bag.BagFragment;
+import com.example.pmjewellers.ui.bag.BagModel;
 import com.example.pmjewellers.ui.feedback.FeedbackFragment;
 import com.example.pmjewellers.ui.home.HomeFragment;
+import com.example.pmjewellers.ui.home.HomeModel;
 import com.example.pmjewellers.ui.logout.LogoutFragment;
 import com.example.pmjewellers.ui.review.ReviewFragment;
 import com.example.pmjewellers.ui.settings.SettingsFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.auth.User;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -39,9 +44,14 @@ public class HomeActivity extends AppCompatActivity {
     GoogleSignInClient gsc;
     TextView UserId,UserEId;
      static String lastFragment;
+
+
     static String id = "HomeFragment";
     MenuItem menuItem;
     BagFragment bagFragment = new BagFragment();
+     FirebaseDatabase firebaseDatabase;
+
+     DatabaseReference databaseReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -162,8 +172,7 @@ public class HomeActivity extends AppCompatActivity {
             setHeaderUser();
 
     }
-
-
+    BagModel bagModel = new BagModel();
 
     private void setHeaderUser() {
 
@@ -188,8 +197,18 @@ public class HomeActivity extends AppCompatActivity {
 
         userId.setText("User ID: "+UserId);
         userEId.setText("Email ID: "+userEID);
+        createUserOnFirebase(UserId);
+        BagModel bagModel1 = new BagModel();
+        bagModel1.setUsername(UserId);
+
 
     }
+    public void createUserOnFirebase(String UserId){
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference(UserId+"/Bucket");
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

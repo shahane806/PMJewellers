@@ -100,8 +100,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
 
-                        android:textColor="@color/googlebackgroundColor"
-                        android:background="@drawable/transparent2"
                         android:layout_weight="1"
                         />
                 </LinearLayout>

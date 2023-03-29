@@ -1,15 +1,17 @@
 package com.example.pmjewellers.ui.home;
 
 
+import com.google.firebase.firestore.auth.User;
 
 public class HomeModel {
     String ProductImage,ProductName,ProductCategory,ProductOffer,ProductPrice;
-    public HomeModel(String ProductImage , String ProductName, String ProductCategory,String ProductOffer,String ProductPrice){
+    public HomeModel(String ProductImage , String ProductName, String ProductCategory,String ProductOffer,String ProductPrice,String UserName){
         this.ProductImage = ProductImage;
         this.ProductName = ProductName;
         this.ProductCategory = ProductCategory;
         this.ProductOffer = ProductOffer;
         this.ProductPrice = ProductPrice;
+
     }
     public HomeModel(String image){
         this.ProductImage = image;
@@ -55,6 +57,8 @@ public class HomeModel {
     public String getProductOffer() {
         return ProductOffer;
     }
+
+
 }
 
 
