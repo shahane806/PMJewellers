@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/homefragmentcard"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+
+    app:cardCornerRadius="10dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+
+
+        <LinearLayout
+            android:id="@+id/ProductDetailedActivitylinearlayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <ImageView
+                    android:id="@+id/ProductDetailActivityProductImage"
+                    android:layout_width="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_height="300dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/bagicon" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="33dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/ProductDetailActivityProductName"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+
+                        android:gravity="center"
+
+                        android:text="ProductName"
+                        android:textColor="@color/googlebackgroundColor"
+                        android:textSize="15sp" />
+                    <TextView
+                        android:id="@+id/ProductDetailActivityProductPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+
+                        android:gravity="center"
+                        android:text="ProductPrice"
+
+                        android:textColor="@color/googlebackgroundColor"
+                        android:textSize="15sp" />
+                    <TextView
+                        android:id="@+id/ProductDetailActivityProductCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+
+                        android:gravity="center"
+                        android:text="ProductCategory"
+
+                        android:textColor="@color/googlebackgroundColor"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:id="@+id/ProductDetailActivityProductOffers"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
+
+                    android:gravity="center"
+                    android:text="Offers"
+
+                    android:textColor="@color/googlebackgroundColor"
+                    android:textSize="15sp"
+                    android:layout_weight="1"
+
+                    />
+                <Button
+                    android:id="@+id/ProductDetailActivityaddToCart"
+                    android:text="Add"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:layout_weight="1"
+                    />
+            </LinearLayout>
+
+
+
+    </LinearLayout>
+    </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
