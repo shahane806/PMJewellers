@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,10 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.bumptech.glide.Glide;
 import com.example.pmjewellers.R;
-import com.example.pmjewellers.ui.bag.BagModel;
 import com.example.pmjewellers.ui.bag.ProductDetailedActivity;
 
 import java.util.ArrayList;
@@ -53,27 +52,71 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
         category = homeModelArrayList.get(position).getProductCategory();
         price = homeModelArrayList.get(position).getProductPrice();
         offers = homeModelArrayList.get(position).getProductOffer();
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ProductDetailedActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("ProductImage",image);
-                bundle.putString("ProductName",name);
-                bundle.putString("ProductCategory",category);
-                bundle.putString("ProductPrice",price);
-                bundle.putString("ProductOffers",offers);
-                intent.putExtra("Bundle",bundle);
+//                bundle.putString("ProductImage",image);
+//                bundle.putString("ProductName",name);
+//                bundle.putString("ProductCategory",category);
+//                bundle.putString("ProductPrice",price);
+//                bundle.putString("ProductOffers",offers);
+//                intent.putExtra("Bundle",bundle);
+//                view.getContext().startActivity(intent);
 
+                bundle.putString("ProductImage",homeModelArrayList.get(position).getProductImage());
+                bundle.putString("ProductName",homeModelArrayList.get(position).getProductName());
+                bundle.putString("ProductCategory",homeModelArrayList.get(position).getProductCategory());
+                bundle.putString("ProductPrice",homeModelArrayList.get(position).getProductPrice());
+                bundle.putString("ProductOffers",homeModelArrayList.get(position).getProductOffer());
+                intent.putExtra("ProductName",homeModelArrayList.get(position).getProductName());
+                intent.putExtra("ProductImage",homeModelArrayList.get(position).getProductImage());
+                intent.putExtra("ProductCategory",homeModelArrayList.get(position).getProductCategory());
+                intent.putExtra("ProductPrice",homeModelArrayList.get(position).getProductPrice());
+                intent.putExtra("ProductOffers",homeModelArrayList.get(position).getProductOffer());
+
+                intent.putExtras(bundle);
                 view.getContext().startActivity(intent);
 
             }
         });
 
+        new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(context, ProductDetailedActivity.class);
+                Bundle bundle=new Bundle();
+//                bundle.putSerializable("ArrayList",homeModelArrayList);
+//                bundle.putInt("position",position);
+
+                bundle.putString("ProductImage",homeModelArrayList.get(position).getProductImage());
+                bundle.putString("ProductName",homeModelArrayList.get(position).getProductName());
+                bundle.putString("ProductCategory",homeModelArrayList.get(position).getProductCategory());
+                bundle.putString("ProductPrice",homeModelArrayList.get(position).getProductPrice());
+                bundle.putString("ProductOffers",homeModelArrayList.get(position).getProductOffer());
+                intent.putExtra("ProductName",homeModelArrayList.get(position).getProductName());
+                intent.putExtra("ProductImage",homeModelArrayList.get(position).getProductImage());
+                intent.putExtra("ProductCategory",homeModelArrayList.get(position).getProductCategory());
+                intent.putExtra("ProductPrice",homeModelArrayList.get(position).getProductPrice());
+                intent.putExtra("ProductOffers",homeModelArrayList.get(position).getProductOffer());
+                if(homeModelArrayList.get(position).getProductName()==null) {
+                    Toast.makeText(view.getContext(), "Null ", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(view.getContext(),homeModelArrayList.get(position).getProductName(), Toast.LENGTH_SHORT).show();
+                }
+                intent.putExtras(bundle);
+//                view.getContext().startActivity(intent);
+
+            }
+        };
+
         holder.itemView.findViewById(R.id.addToCart).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, holder.ProductName.getText().toString(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, holder.ProductName.getText().toString(), Toast.LENGTH_SHORT).show();
 
             }
         });

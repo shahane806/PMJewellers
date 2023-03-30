@@ -4,18 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.pmjewellers.AlertHandling;
-import com.example.pmjewellers.HomeActivity;
 import com.example.pmjewellers.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -119,7 +114,7 @@ public class HomeFragment extends Fragment {
         Clear_adBannerList();
         Clear_homeModelArrayListTwo();
         Clear_homeModelArrayListThree();
-        
+
        return view;
     }
 
@@ -142,7 +137,8 @@ public class HomeFragment extends Fragment {
         Query query = myref.child("GoldCategories/Bracelets");
         recyclerView= view.findViewById(R.id.homeFragmentRecyclerView);
 
-        adapter = new HomeFragmentAdapter(getActivity().getApplicationContext(),homeModelArrayList);
+
+//        adapter = new HomeFragmentAdapter(getActivity().getApplicationContext(),homeModelArrayList);
 
         linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -192,7 +188,7 @@ public class HomeFragment extends Fragment {
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Clear_homeModelArrayList();
+                Clear_homeModelArrayListThree();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     HomeModel homeModel = new HomeModel();
 

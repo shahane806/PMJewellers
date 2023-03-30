@@ -1,9 +1,6 @@
 package com.example.pmjewellers.ui.bag;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,10 +8,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bumptech.glide.Glide;
-import com.example.pmjewellers.HomeActivity;
 import com.example.pmjewellers.R;
-import com.example.pmjewellers.ui.home.HomeModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -37,16 +34,33 @@ public class ProductDetailedActivity extends AppCompatActivity {
         BagModel bagModel = new BagModel();
 
         Intent intent = getIntent();
-       bundle =  intent.getBundleExtra("Bundle");
-        if(bundle!=null)
-        {
+       bundle =  intent.getExtras();
+//        if(bundle!=null)
+//        {
+//                ArrayList<HomeModel> homeModelArrayList = (ArrayList<HomeModel>) bundle.getSerializable("ArrayList");
+//                int position = (int) bundle.getInt("position");
 
-            String userName = (String) bundle.get("UserName");
-            String productImage = (String) bundle.get("ProductImage");
-            String productName = (String) bundle.get("ProductName");
-            String productCategory = (String) bundle.get("ProductCategory");
-            String productOffers = (String) bundle.get("ProductOffers");
-            String productPrice = (String) bundle.get("ProductPrice");
+//            String productImage=(String) homeModelArrayList.get(position).getProductImage();
+//            String productName=(String) homeModelArrayList.get(position).getProductName();
+//            String productCategory=(String) homeModelArrayList.get(position).getProductCategory();
+//            String productOffers=(String) homeModelArrayList.get(position).getProductOffer();
+//            String productPrice=(String) homeModelArrayList.get(position).getProductPrice();
+
+//            String productImage=(String) bundle.getString("ProductImage");
+//            String productName=(String) bundle.getString("ProductName");
+//            String productCategory=(String) bundle.getString("ProductCategory");
+//            String productPrice=(String) bundle.getString("ProductPrice");
+//            String productOffers=(String) bundle.getString("ProductOffers");
+
+            String productImage=(String) intent.getStringExtra("ProductImage");
+            String productName=(String) intent.getStringExtra("ProductName");
+            String productCategory=(String) intent.getStringExtra("ProductCategory");
+            String productPrice=(String) intent.getStringExtra("ProductPrice");
+            String productOffers=(String) intent.getStringExtra("ProductOffers");
+
+            Toast.makeText(getApplicationContext(), productCategory, Toast.LENGTH_SHORT).show();
+
+
             Glide.with(getApplicationContext()).load(productImage).centerCrop().into(ProductImage);
             ProductName = findViewById(R.id.ProductDetailActivityProductName);
             ProductCategory = findViewById(R.id.ProductDetailActivityProductCategory);
@@ -65,15 +79,17 @@ public class ProductDetailedActivity extends AppCompatActivity {
                    firebaseDatabase = FirebaseDatabase.getInstance();
                     databaseReference = firebaseDatabase.getReference(bagModel.getUsername()+"/Bucket").child(productName);
                     databaseReference.child("ProductName").setValue(productName);
-                    databaseReference.child("ProductImage").setValue(productImage);
+//                    databaseReference.child("ProductImage").setValue(productImage);
                     databaseReference.child("ProductCategory").setValue(productCategory);
                     databaseReference.child("ProductPrice").setValue(productPrice);
                     databaseReference.child("ProductOffers").setValue(productOffers);
-                    Toast.makeText(ProductDetailedActivity.this, userName+productName+productPrice+productOffers, Toast.LENGTH_SHORT).show();
                 }
             });
 
-        }
+//        }
+//        else {
+//            Toast.makeText(ProductDetailedActivity.this,"Error", Toast.LENGTH_SHORT).show();
+//        }
 
 
 
