@@ -36,12 +36,21 @@
             android:textStyle="bold" />
 
         <EditText
+            android:id="@+id/UserName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/UserName"
+            android:gravity="center"
+            android:textStyle="bold"
+            />
+        <EditText
             android:id="@+id/RegisterEmailId"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
             android:ems="10"
             android:gravity="center"
+            android:textStyle="bold"
             android:hint="abc@gmail.com"
             android:inputType="textEmailAddress"
             android:paddingStart="10sp"
@@ -52,6 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
+            android:textStyle="bold"
             android:ems="10"
             android:gravity="center"
             android:hint="Password"
@@ -67,7 +77,8 @@
             android:ems="10"
             android:gravity="center"
             android:hint="Confirm Password"
-            android:inputType="textPassword"
+             android:textStyle="bold"
+             android:inputType="textPassword"
             android:paddingStart="10sp"
             android:paddingEnd="10sp" />
 
