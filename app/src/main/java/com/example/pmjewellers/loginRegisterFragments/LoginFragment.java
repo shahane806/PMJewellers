@@ -190,7 +190,8 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
                                                    String userId = accountinfo.getId().toString();
                                                    String userEId=accountinfo.getEmail().toString();
                                                    Intent i=new Intent(getContext(), HomeActivity.class);
-                                                   i.putExtra("UserId", userId);
+                                                   i.putExtra("UserId", task.getResult().getUser().getUid().toString());
+//                                                   Toast.makeText(getContext(),user.)
                                                    i.putExtra("UserEId", userEId);
                                                    startActivity(i);
                                                }
@@ -225,7 +226,8 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
                             //Toast.makeText(getActivity().getApplicationContext(), "Login Succesful.", Toast.LENGTH_SHORT).show();
                             loginProgressBar.setVisibility(View.GONE);
                             Intent i=new Intent(getContext(), HomeActivity.class);
-                            i.putExtra("UserId", "default");
+
+                            i.putExtra("UserId", task.getResult().getUser().getUid().toString());
                             i.putExtra("UserEId", email);
                             startActivity(i);
 
