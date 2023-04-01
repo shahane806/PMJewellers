@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +19,12 @@ import com.bumptech.glide.Glide;
 import com.example.pmjewellers.HomeActivity;
 import com.example.pmjewellers.R;
 import com.example.pmjewellers.ui.bag.ProductDetailedActivity;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import org.checkerframework.checker.units.qual.A;
 
@@ -25,7 +32,8 @@ import java.util.ArrayList;
 public class BagFragmentAdapter extends RecyclerView.Adapter<BagFragmentAdapter.viewHolder>  {
     Context context;
     ArrayList<BagModel> homeModelArrayList;
-
+    DatabaseReference databaseReference;
+    FirebaseDatabase firebaseDatabase;
     String image,name,category,price,offers;
 
 
@@ -39,7 +47,7 @@ public class BagFragmentAdapter extends RecyclerView.Adapter<BagFragmentAdapter.
     @NonNull
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.simple_home_fragment,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.simple_bag_fragment,parent,false);
         return new viewHolder(view);
     }
 
@@ -55,30 +63,38 @@ public class BagFragmentAdapter extends RecyclerView.Adapter<BagFragmentAdapter.
         category = homeModelArrayList.get(position).getProductCategory();
         price = homeModelArrayList.get(position).getProductPrice();
         offers = homeModelArrayList.get(position).getProductOffer();
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, ProductDetailedActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("ProductImage",image);
-                bundle.putString("ProductName",name);
-                bundle.putString("ProductCategory",category);
-                bundle.putString("ProductPrice",price);
-                bundle.putString("ProductOffers",offers);
-                intent.putExtra("Bundle",bundle);
+        BagModel bagModel = new BagModel();
+        Button remove ;
+        remove = holder.itemView.findViewById(R.id.removeFromCart);
 
-                view.getContext().startActivity(intent);
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+                remove.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                        Query applesQuery = ref.child(bagModel.getUsername()).child("/Bucket").child(homeModelArrayList.get(position).getProductName());
 
-            }
-        });
+                        applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                                    appleSnapshot.getRef().removeValue();
+                                    Toast.makeText(context, "Item Removed Successfully.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
 
-        holder.itemView.findViewById(R.id.addToCart).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, holder.ProductName.getText().toString(), Toast.LENGTH_SHORT).show();
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
+                        });
+                    }
+                });
+//            }
+//        });
 
-            }
-        });
+
     }
 
 

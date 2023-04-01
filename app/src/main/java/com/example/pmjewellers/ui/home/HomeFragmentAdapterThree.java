@@ -15,13 +15,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.pmjewellers.R;
+import com.example.pmjewellers.ui.bag.BagModel;
 import com.example.pmjewellers.ui.bag.ProductDetailedActivity;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 public class HomeFragmentAdapterThree extends RecyclerView.Adapter<HomeFragmentAdapterThree.viewHolder>  {
     Context context;
     ArrayList<HomeModel> homeModelArrayList;
-
+    DatabaseReference databaseReference;
+    FirebaseDatabase firebaseDatabase;
     String image,name,category,price,offers;
 
 
@@ -82,7 +86,17 @@ public class HomeFragmentAdapterThree extends RecyclerView.Adapter<HomeFragmentA
         holder.itemView.findViewById(R.id.addToCart).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, holder.ProductName.getText().toString(), Toast.LENGTH_SHORT).show();
+                BagModel bagModel = new BagModel();
+
+                firebaseDatabase = FirebaseDatabase.getInstance();
+
+                databaseReference = firebaseDatabase.getReference(bagModel.getUsername()+"/Bucket").child(name);
+                databaseReference.child("ProductName").setValue(name);
+                databaseReference.child("ProductImage").setValue(image);
+                databaseReference.child("ProductCategory").setValue(category);
+                databaseReference.child("ProductPrice").setValue(price);
+                databaseReference.child("ProductOffers").setValue(offers);
+
             }
         });
     }
