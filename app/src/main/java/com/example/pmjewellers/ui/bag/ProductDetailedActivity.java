@@ -79,7 +79,7 @@ public class ProductDetailedActivity extends AppCompatActivity {
                    firebaseDatabase = FirebaseDatabase.getInstance();
                     databaseReference = firebaseDatabase.getReference(bagModel.getUsername()+"/Bucket").child(productName);
                     databaseReference.child("ProductName").setValue(productName);
-//                    databaseReference.child("ProductImage").setValue(productImage);
+                    databaseReference.child("ProductImage").setValue(productImage);
                     databaseReference.child("ProductCategory").setValue(productCategory);
                     databaseReference.child("ProductPrice").setValue(productPrice);
                     databaseReference.child("ProductOffers").setValue(productOffers);
