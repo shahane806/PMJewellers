@@ -1,28 +1,22 @@
 package com.example.pmjewellers.ui.bag;
 
-import android.content.Intent;
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pmjewellers.HomeActivity;
-import com.example.pmjewellers.MainActivity;
 import com.example.pmjewellers.R;
-import com.example.pmjewellers.ui.home.AdBannerFragmentAdapter;
-import com.example.pmjewellers.ui.home.HomeFragmentAdapter;
-import com.example.pmjewellers.ui.home.HomeFragmentAdapterThree;
-import com.example.pmjewellers.ui.home.HomeFragmentAdapterTwo;
-import com.example.pmjewellers.ui.home.HomeModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +24,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -87,6 +83,7 @@ public class BagFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+    TextView TotalItems,TotalCost;
 
 
     @Override
@@ -94,12 +91,17 @@ public class BagFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
          view =  inflater.inflate(R.layout.fragment_bag, container, false);
+         TotalItems = view.findViewById(R.id.TotalItems);
+         TotalCost = view.findViewById(R.id.TotalCost);
+
         myref = FirebaseDatabase.getInstance().getReference();
         Thread thread = new Thread(){
             @Override
             public void run() {
                 try {
                     ShowBucket();
+
+
 
                 }
                 catch (Exception e){
@@ -116,11 +118,10 @@ public class BagFragment extends Fragment {
 
         return view;
     }
-
     //***************************************************  WORKING ON CART  *********************//
     public void ShowBucket(){
-
         BagModel bagModel = new BagModel();
+
         Query query = myref.child(bagModel.getUsername()+"/Bucket");
         recyclerView= view.findViewById(R.id.BagRecyclerView);
         adapter = new BagFragmentAdapter(getActivity().getApplicationContext(),homeModelArrayList);
@@ -134,9 +135,26 @@ public class BagFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Clear_homeModelArrayList();
+                 float sum = 0;
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    BagModel bagModel = new BagModel();
 
-                        BagModel bagModel = new BagModel();
+                    try {
+
+
+                            Map<String,Object> map = (Map<String, Object>) snapshot.getValue();
+                            Object price = map.get("ProductPrice");
+
+                            float gValue = Float.parseFloat(String.valueOf(price));
+                            sum += gValue;
+
+                            TotalCost.setText("Total Cost : "+sum);
+
+                    }
+                    catch (NumberFormatException e){
+                        e.printStackTrace();
+                    }
+
 
                    try {
                        bagModel.setProductImage(snapshot.child("ProductImage").getValue().toString());
@@ -144,15 +162,20 @@ public class BagFragment extends Fragment {
                        bagModel.setProductCategory(snapshot.child("ProductCategory").getValue().toString());
                        bagModel.setProductOffer(snapshot.child("ProductOffers").getValue().toString());
                        bagModel.setProductPrice(snapshot.child("ProductPrice").getValue().toString());
+
+
+
                    }
                    catch (Exception e){
                        e.printStackTrace();
                    }
                     homeModelArrayList.add(bagModel);
-
                 }
+
                 adapter = new BagFragmentAdapter(getContext(),homeModelArrayList);
                 recyclerView.setAdapter(adapter);
+                TotalItems.setText("Items : "+ adapter.getItemCount());
+
 
             }
 
@@ -160,10 +183,18 @@ public class BagFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+
         });
 
 
+
+
     }
+
+
+
+
+
     public void Clear_homeModelArrayList(){
         if(homeModelArrayList != null){
             homeModelArrayList.clear();

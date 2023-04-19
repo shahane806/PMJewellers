@@ -40,4 +40,10 @@
     <string name="UserName">UserName</string>
     <string name="BagIsEmpty">Bag Empty</string>
     <string name="AdFragment">AdFragment</string>
+    <string name="ProfileName">Surname MiddleName FirstName</string>
+    <string name="ProfileAddress">Address</string>
+    <string name="ProfileMobileNumber">+91 1234567890</string>
+    <string name="ProfileEmailId">abc@gmail.com</string>
+    <string name="Totalitems">Items : 0</string>
+    <string name="TotalCost">Total Cost : 0</string>
 </resources>

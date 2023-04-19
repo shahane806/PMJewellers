@@ -20,11 +20,6 @@
             android:icon="@drawable/accounticon"
             android:menuCategory="secondary"
             android:title="@string/menu_account" />
-        <item
-            android:id="@+id/nav_settings"
-            android:icon="@drawable/settingsicon"
-            android:menuCategory="secondary"
-            android:title="@string/menu_settings" />
 
             <item
                 android:id="@+id/nav_logout"
