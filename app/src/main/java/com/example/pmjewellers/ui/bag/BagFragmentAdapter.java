@@ -1,6 +1,12 @@
 package com.example.pmjewellers.ui.bag;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,19 +34,24 @@ public class BagFragmentAdapter extends RecyclerView.Adapter<BagFragmentAdapter.
     DatabaseReference databaseReference;
     FirebaseDatabase firebaseDatabase;
     String image,name,category,price,offers;
+    static String TotalCost;
 
 
     public BagFragmentAdapter(Context c, ArrayList<BagModel> h) {
         this.homeModelArrayList = h;
         this.context = c;
     }
+    BagFragmentAdapter(){}
+
 
 
 
     @NonNull
     @Override
+
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.simple_bag_fragment,parent,false);
+
         return new viewHolder(view);
     }
 
@@ -100,7 +111,59 @@ public class BagFragmentAdapter extends RecyclerView.Adapter<BagFragmentAdapter.
         return homeModelArrayList.size();
     }
 
+    public String getTotalCost(int position) {
 
+        this.TotalCost = String.valueOf(Float.parseFloat(TotalCost)+Float.parseFloat(homeModelArrayList.get(position).getProductPrice()));
+        return TotalCost;
+    }
+
+    public void setTotalCost(String totalCost) {
+        TotalCost = totalCost;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    public void setOffers(String offers) {
+        this.offers = offers;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public String getOffers() {
+        return offers;
+    }
+
+    public String getCategory() {
+        return category;
+    }
 
     public class viewHolder extends RecyclerView.ViewHolder{
         ImageView ProductImage;

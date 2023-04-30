@@ -282,25 +282,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home_activity, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId()==R.id.action_logout)
-        {
-            Toast.makeText(getApplicationContext(),"clicked",Toast.LENGTH_SHORT).show();
-
-
-        }
-        return super.onOptionsItemSelected(item);
-
-    }
 
     @Override
     public boolean onSupportNavigateUp() {
