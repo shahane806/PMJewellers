@@ -10,6 +10,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+
     <LinearLayout
         android:id="@+id/LoginRegister"
         android:layout_width="match_parent"

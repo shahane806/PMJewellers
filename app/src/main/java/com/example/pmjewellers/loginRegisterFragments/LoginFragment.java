@@ -2,6 +2,7 @@ package com.example.pmjewellers.loginRegisterFragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.example.pmjewellers.AlertHandling;
 import com.example.pmjewellers.HomeActivity;
 import com.example.pmjewellers.MainActivity;
 import com.example.pmjewellers.R;
+import com.example.pmjewellers.UserInfo;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -29,6 +31,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -90,6 +94,7 @@ public class LoginFragment extends Fragment {
     Button RegisterBtn;
     Button LoginBtn;
     ProgressBar loginProgressBar;
+    DatabaseReference database;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -186,12 +191,28 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
                                            public void onComplete(@NonNull Task<AuthResult> task) {
                                                if(task.isSuccessful())
                                                {
-                                                   FirebaseUser user =login_authentication.getCurrentUser();
+                                                   FirebaseUser users =login_authentication.getCurrentUser();
                                                    GoogleSignInAccount accountinfo =GoogleSignIn.getLastSignedInAccount(getContext());
                                                    String userId = accountinfo.getId().toString();
-                                                   String userEId=accountinfo.getEmail().toString();
+                                                   String userEId = accountinfo.getEmail().toString();
+                                                   String[] name=userEId.split("@");
+                                                   mainActivity.user=new UserInfo(name[0],userEId,userId);
+                                                   try{
+                                                       database= FirebaseDatabase.getInstance().getReference();
+                                                       if(database.child("Users").child(userId).child("UserInfo").setValue(mainActivity.user).isSuccessful())
+                                                       {
+                                                           Log.d("Send data to firebase","Execut Successfully");
+                                                       }else{
+                                                           Log.d("Send data to firebase","Execut Un-successfully");
+                                                       }
+                                                   }
+                                                   catch(Exception e){
+                                                       Log.d("Error : ",e.toString());
+                                                   }
+
                                                    Intent i=new Intent(getContext(), HomeActivity.class);
-                                                   i.putExtra("UserId", task.getResult().getUser().getUid().toString());
+
+                                                   i.putExtra("UserId", userId);
 //                                                   Toast.makeText(getContext(),user.)
                                                    i.putExtra("UserEId", userEId);
                                                    startActivity(i);
@@ -241,6 +262,7 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
                         }
                     }
+
                 });
     }
 }

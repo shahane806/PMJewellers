@@ -2,6 +2,7 @@ package com.example.pmjewellers;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,28 +24,29 @@ import com.example.pmjewellers.ui.bag.BagFragment;
 import com.example.pmjewellers.ui.bag.BagModel;
 import com.example.pmjewellers.ui.feedback.FeedbackFragment;
 import com.example.pmjewellers.ui.home.HomeFragment;
-import com.example.pmjewellers.ui.home.HomeModel;
 import com.example.pmjewellers.ui.logout.LogoutFragment;
 import com.example.pmjewellers.ui.review.ReviewFragment;
 import com.example.pmjewellers.ui.settings.SettingsFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.auth.User;
+import com.google.firebase.database.ValueEventListener;
 
 public class HomeActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeBinding binding;
     NavigationView navigationView;
+    UserInfo user;
 
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
     TextView UserId,UserEId;
      static String lastFragment;
-
 
     static String id = "HomeFragment";
     MenuItem menuItem;
@@ -59,9 +61,6 @@ public class HomeActivity extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         navigationView=findViewById(R.id.nav_view);
-
-
-
 
         setSupportActionBar(binding.appBarMain.toolbar);
 
@@ -186,7 +185,79 @@ public class HomeActivity extends AppCompatActivity {
 
         String UserId= intent.getStringExtra("UserId");
         String userEID= intent.getStringExtra("UserEId");
+        databaseReference=FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("Users/"+UserId);
 
+//            databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot Snapshot) {
+//                user=new UserInfo();
+//                Log.d("zzzzzzzzzzzzzzzzzzzz",Snapshot.getChildren().toString());
+//                if(Snapshot.hasChild("userInfo")){
+//                    Log.d("ZZZZZZZZZZZZZZZZZ","path present");
+//                }
+//                else{
+//                    Log.d("ZZZZZZZZZZZZZZZZZ","path not present");
+//
+//                }
+////                Log.d("DATA IS HERE ::::",Snapshot.child("/userInfo/").toString());
+////                for (DataSnapshot snapshot : Snapshot.getChildren()) {
+//                    try {
+////                            user= Snapshot.getValue(UserInfo.class);
+////                        user.setUserId(snapshot.child("userId").getValue().toString());
+////                        user.setUserEmail(Snapshot.child("userEmail").getValue().toString());
+////                        user.setUserName(snapshot.child("userName").getValue().toString());
+////                        user.setUserPassword(snapshot.child("userPassword").getValue().toString());
+////                        user.setUserComfirmPassword(snapshot.child("userComfirmPassword").getValue().toString());
+////                        if(user!=null){
+////                            Log.d("UserEmail",user.getUserEmail());
+////                        }
+////                        else{
+////                            Log.d("UserEmail","user.getUserEmail() is null");
+////
+////                        }
+//                    }
+//                    catch (Exception e){
+//                        Log.d("Error : ",e.toString());
+//                    }
+////                }
+////                try{
+////                Log.d("UserName", user.getUserName());
+////                Log.d("UserId", user.getUserId());
+////                Log.d("UserPassword", user.getUserPassword());
+////                Log.d("UserComPassword", user.getUserComfirmPassword());
+////                Log.d("UserEmail", user.getUserEmail());}catch (Exception e){
+////                    Log.d("Error : ",e.toString());
+////                }
+//            }
+//
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+        databaseReference=FirebaseDatabase.getInstance().getReference().child("Users/"+UserId+"/UserInfo");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                try {
+                    user = snapshot.getValue(UserInfo.class);
+
+                    Log.d("UserName : : : : : : ",user.getUserName());
+                }
+                catch(Exception e) {
+                    Log.d("Error : : : : : : ", e.toString());
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        Log.d("USER ID IS :::::::::",UserId);
         if(UserId.equals("default"))
         {
             String[] splitStr=userEID.split("@");
@@ -197,6 +268,7 @@ public class HomeActivity extends AppCompatActivity {
 
         userId.setText("User ID: "+UserId);
         userEId.setText("Email ID: "+userEID);
+
         createUserOnFirebase(UserId);
         BagModel bagModel1 = new BagModel();
         bagModel1.setUsername(UserId);

@@ -90,7 +90,7 @@ public class HomeFragmentAdapterThree extends RecyclerView.Adapter<HomeFragmentA
 
                 firebaseDatabase = FirebaseDatabase.getInstance();
 
-                databaseReference = firebaseDatabase.getReference(bagModel.getUsername()+"/Bucket").child(name);
+                databaseReference = firebaseDatabase.getReference("Users/"+bagModel.getUsername()+"/Bucket").child(name);
                 databaseReference.child("ProductName").setValue(name);
                 databaseReference.child("ProductImage").setValue(image);
                 databaseReference.child("ProductCategory").setValue(category);

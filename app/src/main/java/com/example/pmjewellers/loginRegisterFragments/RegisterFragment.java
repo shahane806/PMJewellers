@@ -1,6 +1,7 @@
 package com.example.pmjewellers.loginRegisterFragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**
@@ -40,10 +42,11 @@ public class RegisterFragment extends Fragment {
     FirebaseAuth register_authentication;
     EditText userName,email,password,confirmpassword;
     MainActivity mainActivity;
+
     public static String userId;
     AlertHandling alert;
     ProgressBar progressBar;
-    FirebaseDatabase database;
+    DatabaseReference database;
     public RegisterFragment() {
         // Required empty public constructor
     }
@@ -129,7 +132,7 @@ public class RegisterFragment extends Fragment {
         }
          if(userName.isEmpty())
                 {
-                   alert.emailRequiredDialog();
+                   alert.UserNameRequiredDialog();
                     progressBar.setVisibility(View.GONE);
                     return;
                 }
@@ -159,17 +162,24 @@ public class RegisterFragment extends Fragment {
                                 // Sign in success, update UI with the signed-in user's information
                                  userId=task.getResult().getUser().getUid().toString();
                                 String userEmail=task.getResult().getUser().getEmail().toString();
-                                UserInfo user=new UserInfo(userName,userEmail,password,confirmpassword,userId);
+                                mainActivity.user=new UserInfo(userName,userEmail,userId);
                                 Toast.makeText(getActivity().getApplicationContext(),"Registered Succesfully.",Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);
-                                database.getReference().child("Users.").child(userId).setValue(user);
 
+                                try{
+                                    database= FirebaseDatabase.getInstance().getReference();
+                                    database.child("Users").child(userId).child("userInfo").setValue(mainActivity.user);
+
+                                }
+                                catch(Exception e){
+                                    Log.d("Error : ",e.toString());
+                                }
+                                mainActivity.changeFragment("LoginFragment");
 
                             } else {
                                 // If sign in fails, display a message to the user.
                                alert.registrationFailedDialog();
-                                //Toast.makeText(getActivity().getApplicationContext(),"Registered Succesfully.",Toast.LENGTH_SHORT).show();
-                                progressBar.setVisibility(View.GONE);
+                               progressBar.setVisibility(View.GONE);
                             }
                         }
                     });

@@ -13,7 +13,7 @@ import com.example.pmjewellers.loginRegisterFragments.RegisterFragment;
 
 public class MainActivity extends AppCompatActivity{
 
-
+    public UserInfo user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity{
         RegisterFragment loginRegisterFragment = new RegisterFragment();
         FragmentTransaction loginRegisterFragmentTransaction = getSupportFragmentManager().beginTransaction();
         loginRegisterFragmentTransaction.replace(R.id.LoginRegister,loginRegisterFragment);
-
         loginRegisterFragmentTransaction.commit();
     }
 

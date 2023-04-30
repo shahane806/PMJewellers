@@ -22,7 +22,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapter.viewHolder>  {
     Context context;
@@ -125,7 +124,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
                 BagModel bagModel = new BagModel();
 
                 firebaseDatabase = FirebaseDatabase.getInstance();
-                databaseReference = firebaseDatabase.getReference(bagModel.getUsername()+"/Bucket").child(name);
+                databaseReference = firebaseDatabase.getReference("Users/"+bagModel.getUsername()+"/Bucket").child(name);
                 databaseReference.child("ProductName").setValue(name);
                 databaseReference.child("ProductImage").setValue(image);
                 databaseReference.child("ProductCategory").setValue(category);
@@ -165,11 +164,6 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
             ProductOffers = itemView.findViewById(R.id.ProductOffers);
 
         }
-
-
-
-
-
 
     }
 
