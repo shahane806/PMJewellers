@@ -73,7 +73,6 @@ public class HomeFragment extends Fragment {
     }
 
     HomeFragmentAdapter adapter;
-    HomeFragmentAdapter adapter10;
     HomeFragmentAdapterTwo adapter2;
     HomeFragmentAdapterThree adapter3;
     AdBannerFragmentAdapter bannerFragmentAdapter;
@@ -216,8 +215,7 @@ public class HomeFragment extends Fragment {
         Query query = myref.child("GoldCategories/Necklace");
         recyclerView3= view.findViewById(R.id.homeFragmentRecyclerView3);
 
-        //adapter2 = new HomeFragmentAdapterTwo(getActivity().getApplicationContext(),homeModelArrayList2);
-        adapter10=new HomeFragmentAdapter(getActivity().getApplicationContext(),homeModelArrayList);
+        adapter2 = new HomeFragmentAdapterTwo(getActivity().getApplicationContext(),homeModelArrayList2);
 
 
         linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
@@ -240,10 +238,9 @@ public class HomeFragment extends Fragment {
 
                     homeModelArrayList2.add(homeModel);
                 }
-//                adapter2 = new HomeFragmentAdapterTwo(getContext(),homeModelArrayList2);
-                adapter10=new HomeFragmentAdapter(getActivity().getApplicationContext(),homeModelArrayList2);
+                adapter2 = new HomeFragmentAdapterTwo(getContext(),homeModelArrayList2);
 
-                recyclerView3.setAdapter(adapter10);
+                recyclerView3.setAdapter(adapter2);
 
             }
 

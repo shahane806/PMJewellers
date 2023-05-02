@@ -122,7 +122,7 @@ public class BagFragment extends Fragment {
     public void ShowBucket(){
         BagModel bagModel = new BagModel();
 
-        Query query = myref.child(bagModel.getUsername()+"/Bucket");
+        Query query = myref.child("Users/"+bagModel.getUsername()+"/Bucket");
         recyclerView= view.findViewById(R.id.BagRecyclerView);
         adapter = new BagFragmentAdapter(getActivity().getApplicationContext(),homeModelArrayList);
 

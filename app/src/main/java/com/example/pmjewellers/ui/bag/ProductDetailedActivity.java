@@ -77,7 +77,7 @@ public class ProductDetailedActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                    firebaseDatabase = FirebaseDatabase.getInstance();
-                    databaseReference = firebaseDatabase.getReference(bagModel.getUsername()+"/Bucket").child(productName);
+                    databaseReference = firebaseDatabase.getReference("Users/"+bagModel.getUsername()+"/Bucket").child(productName);
                     databaseReference.child("ProductName").setValue(productName);
                     databaseReference.child("ProductImage").setValue(productImage);
                     databaseReference.child("ProductCategory").setValue(productCategory);

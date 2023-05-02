@@ -272,8 +272,6 @@ public class HomeActivity extends AppCompatActivity {
         createUserOnFirebase(UserId);
         BagModel bagModel1 = new BagModel();
         bagModel1.setUsername(UserId);
-
-
     }
     public void createUserOnFirebase(String UserId){
         firebaseDatabase = FirebaseDatabase.getInstance();
