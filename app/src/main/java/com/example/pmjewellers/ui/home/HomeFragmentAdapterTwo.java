@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -95,7 +94,7 @@ public class HomeFragmentAdapterTwo extends RecyclerView.Adapter<HomeFragmentAda
                 BagModel bagModel = new BagModel();
 
                 firebaseDatabase = FirebaseDatabase.getInstance();
-                databaseReference = firebaseDatabase.getReference(bagModel.getUsername()+"/Bucket").child(name);
+                databaseReference = firebaseDatabase.getReference("Users/"+bagModel.getUsername()+"/Bucket").child(name);
                 databaseReference.child("ProductName").setValue(name);
                 databaseReference.child("ProductImage").setValue(image);
                 databaseReference.child("ProductCategory").setValue(category);

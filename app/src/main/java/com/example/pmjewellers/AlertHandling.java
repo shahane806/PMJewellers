@@ -123,32 +123,59 @@ public class AlertHandling {
                     }).show();
         }
 
-        public void passwordConfirmationFailedDialog(){
-            new AlertDialog.Builder(context)
-                    .setIcon(R.drawable.error)
-                    .setTitle("Error !!!")
-                    .setMessage("Password and Confirm password should be same.")
-                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
+    public void passwordConfirmationFailedDialog(){
+        new AlertDialog.Builder(context)
+                .setIcon(R.drawable.error)
+                .setTitle("Error !!!")
+                .setMessage("Password and Confirm password should be same.")
+                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                        }
-                    })
-                    .setNeutralButton("Help", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                })
+                .setNeutralButton("Help", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                            //Add Information fregment
+                        //Add Information fregment
 
-                            Toast.makeText(context, "Help fregment will available  soon", Toast.LENGTH_LONG).show();
-                        }
-                    })
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                        }
-                    }).show();
-        }
+                        Toast.makeText(context, "Help fregment will available  soon", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                }).show();
+    }
+
+    public void UserNameRequiredDialog(){
+        new AlertDialog.Builder(context)
+                .setIcon(R.drawable.error)
+                .setTitle("Error !!!")
+                .setMessage("Password and Confirm password should be same.")
+                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .setNeutralButton("Help", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        //Add Information fregment
+
+                        Toast.makeText(context, "Help fregment will available  soon", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                }).show();
+    }
 
     public void logoutConfirmationDialog() {
 
@@ -185,4 +212,6 @@ public class AlertHandling {
                     }
                 }).show();
     }
+
+
 }

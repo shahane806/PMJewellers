@@ -73,6 +73,7 @@ public class HomeFragment extends Fragment {
     }
 
     HomeFragmentAdapter adapter;
+    HomeFragmentAdapter adapter10;
     HomeFragmentAdapterTwo adapter2;
     HomeFragmentAdapterThree adapter3;
     AdBannerFragmentAdapter bannerFragmentAdapter;
@@ -138,8 +139,7 @@ public class HomeFragment extends Fragment {
         recyclerView= view.findViewById(R.id.homeFragmentRecyclerView);
 
 
-//        adapter = new HomeFragmentAdapter(getActivity().getApplicationContext(),homeModelArrayList);
-
+        adapter = new HomeFragmentAdapter(getActivity().getApplicationContext(),homeModelArrayList);
         linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
       //  recyclerView.addItemDecoration(new DividerItemDecoration(getActivity().getApplicationContext(),DividerItemDecoration.HORIZONTAL));
@@ -216,7 +216,9 @@ public class HomeFragment extends Fragment {
         Query query = myref.child("GoldCategories/Necklace");
         recyclerView3= view.findViewById(R.id.homeFragmentRecyclerView3);
 
-        adapter2 = new HomeFragmentAdapterTwo(getActivity().getApplicationContext(),homeModelArrayList2);
+        //adapter2 = new HomeFragmentAdapterTwo(getActivity().getApplicationContext(),homeModelArrayList2);
+        adapter10=new HomeFragmentAdapter(getActivity().getApplicationContext(),homeModelArrayList);
+
 
         linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
         recyclerView3.setLayoutManager(linearLayoutManager);
@@ -238,8 +240,10 @@ public class HomeFragment extends Fragment {
 
                     homeModelArrayList2.add(homeModel);
                 }
-                adapter2 = new HomeFragmentAdapterTwo(getContext(),homeModelArrayList2);
-                recyclerView3.setAdapter(adapter2);
+//                adapter2 = new HomeFragmentAdapterTwo(getContext(),homeModelArrayList2);
+                adapter10=new HomeFragmentAdapter(getActivity().getApplicationContext(),homeModelArrayList2);
+
+                recyclerView3.setAdapter(adapter10);
 
             }
 
