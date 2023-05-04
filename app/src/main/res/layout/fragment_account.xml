@@ -65,13 +65,13 @@
 
 
             />
-          <Button
+        <Button
 
-              android:text="Save"
-              android:layout_width="match_parent"
-              android:layout_height="60dp"
-              android:id="@+id/save"
-              />
+            android:text="Save"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/save"
+            />
 
 
     </LinearLayout>

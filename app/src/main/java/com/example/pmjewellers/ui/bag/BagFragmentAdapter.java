@@ -1,12 +1,6 @@
 package com.example.pmjewellers.ui.bag;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Context;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +25,7 @@ import java.util.ArrayList;
 public class BagFragmentAdapter extends RecyclerView.Adapter<BagFragmentAdapter.viewHolder>  {
     Context context;
     ArrayList<BagModel> homeModelArrayList;
-    DatabaseReference databaseReference;
-    FirebaseDatabase firebaseDatabase;
+
     String image,name,category,price,offers;
     static String TotalCost;
 
@@ -74,18 +67,30 @@ public class BagFragmentAdapter extends RecyclerView.Adapter<BagFragmentAdapter.
 //        holder.itemView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
+
                 remove.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                        Query applesQuery = ref.child("Users/"+bagModel.getUsername()).child("/Bucket").child(homeModelArrayList.get(position).getProductName());
-
+                        Query applesQuery = ref.child("Users/"+bagModel.getUsername()).child("/Bucket/").child(homeModelArrayList.get(position).getProductName());
+                        if(homeModelArrayList.size()==1)
+                        {
+                           ref.child("Users/"+bagModel.getUsername()).child("/Bucket/").getRef().removeValue();
+                        }
+                        else{
                         applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(homeModelArrayList.size()==1)
+                                {
+                                    dataSnapshot.getRef().removeValue();
+                                }
                                 for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
-                                    appleSnapshot.getRef().removeValue();
-                                    Toast.makeText(context, "Item Removed Successfully.", Toast.LENGTH_SHORT).show();
+                                    if(appleSnapshot.getRef().removeValue().isSuccessful())
+                                    {
+                                        Toast.makeText(context, "Item Removed Successfully.", Toast.LENGTH_SHORT).show();
+                                    }
+
                                 }
                             }
 
@@ -93,7 +98,7 @@ public class BagFragmentAdapter extends RecyclerView.Adapter<BagFragmentAdapter.
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
                             }
-                        });
+                        });}
                     }
                 });
 //            }

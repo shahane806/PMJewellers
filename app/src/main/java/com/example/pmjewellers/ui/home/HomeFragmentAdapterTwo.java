@@ -83,10 +83,26 @@ public class HomeFragmentAdapterTwo extends RecyclerView.Adapter<HomeFragmentAda
                 view.getContext().startActivity(intent);
 
 
+
+
             }
         });
 
+        holder.itemView.findViewById(R.id.addToCart).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BagModel bagModel = new BagModel();
 
+                firebaseDatabase = FirebaseDatabase.getInstance();
+                databaseReference = firebaseDatabase.getReference("Users/"+bagModel.getUsername()+"/Bucket").child(name);
+                databaseReference.child("ProductName").setValue(homeModelArrayList.get(position).getProductName());
+                databaseReference.child("ProductImage").setValue(homeModelArrayList.get(position).getProductImage());
+                databaseReference.child("ProductCategory").setValue(homeModelArrayList.get(position).getProductCategory());
+                databaseReference.child("ProductPrice").setValue(homeModelArrayList.get(position).getProductPrice());
+                databaseReference.child("ProductOffers").setValue(homeModelArrayList.get(position).getProductOffer());
+
+            }
+        });
         new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -94,7 +110,6 @@ public class HomeFragmentAdapterTwo extends RecyclerView.Adapter<HomeFragmentAda
                 Bundle bundle=new Bundle();
 //                bundle.putSerializable("ArrayList",homeModelArrayList);
 //                bundle.putInt("position",position);
-
                 bundle.putString("ProductImage",homeModelArrayList.get(position).getProductImage());
                 bundle.putString("ProductName",homeModelArrayList.get(position).getProductName());
                 bundle.putString("ProductCategory",homeModelArrayList.get(position).getProductCategory());
@@ -112,27 +127,15 @@ public class HomeFragmentAdapterTwo extends RecyclerView.Adapter<HomeFragmentAda
                     Toast.makeText(view.getContext(),homeModelArrayList.get(position).getProductName(), Toast.LENGTH_SHORT).show();
                 }
                 intent.putExtras(bundle);
-//                view.getContext().startActivity(intent);
+                view.getContext().startActivity(intent);
+
+
 
             }
         };
 
 
-        holder.itemView.findViewById(R.id.addToCart).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                BagModel bagModel = new BagModel();
 
-                firebaseDatabase = FirebaseDatabase.getInstance();
-                databaseReference = firebaseDatabase.getReference("Users/"+bagModel.getUsername()+"/Bucket").child(name);
-                databaseReference.child("ProductName").setValue(name);
-                databaseReference.child("ProductImage").setValue(image);
-                databaseReference.child("ProductCategory").setValue(category);
-                databaseReference.child("ProductPrice").setValue(price);
-                databaseReference.child("ProductOffers").setValue(offers);
-
-            }
-        });
     }
 
 
