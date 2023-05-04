@@ -135,9 +135,9 @@ public class BagFragment extends Fragment {
                    }
                    catch (Exception e){
                        e.printStackTrace();
+
                    }
                     homeModelArrayList.add(bagModel);
-
                 }
                 adapter = new BagFragmentAdapter(getContext(),homeModelArrayList);
                 recyclerView.setAdapter(adapter);
