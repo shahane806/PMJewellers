@@ -3,6 +3,7 @@ package com.example.pmjewellers.ui.home;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.pmjewellers.HomeActivity;
+import com.example.pmjewellers.MainActivity;
 import com.example.pmjewellers.R;
 import com.example.pmjewellers.ui.bag.BagModel;
 import com.example.pmjewellers.ui.bag.ProductDetailedActivity;
@@ -29,6 +32,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
 
     String image,name,category,price,offers;
     FirebaseDatabase firebaseDatabase;
+    HomeActivity homeActivity;
     DatabaseReference databaseReference;
 
     public HomeFragmentAdapter(Context c, ArrayList<HomeModel> h) {
@@ -85,14 +89,34 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
                 intent.putExtras(bundle);
                 view.getContext().startActivity(intent);
 
+
+
+            }
+        });
+
+        holder.itemView.findViewById(R.id.addToCart).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BagModel bagModel = new BagModel();
+
+                firebaseDatabase = FirebaseDatabase.getInstance();
+                databaseReference = firebaseDatabase.getReference("Users/"+bagModel.getUsername()+"/Bucket").child(name);
+                databaseReference.child("ProductName").setValue(homeModelArrayList.get(position).getProductName());
+                databaseReference.child("ProductImage").setValue(homeModelArrayList.get(position).getProductImage());
+                databaseReference.child("ProductCategory").setValue(homeModelArrayList.get(position).getProductCategory());
+                databaseReference.child("ProductPrice").setValue(homeModelArrayList.get(position).getProductPrice());
+                databaseReference.child("ProductOffers").setValue(homeModelArrayList.get(position).getProductOffer());
+
             }
         });
 
         new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(context, ProductDetailedActivity.class);
+                Intent intent = new Intent(context, MainActivity.class);
                 Bundle bundle=new Bundle();
+                Log.d("IIIIIIIIIIIIIIIIIII",String.valueOf(position));
+
 //                bundle.putSerializable("ArrayList",homeModelArrayList);
 //                bundle.putInt("position",position);
 
@@ -113,26 +137,12 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
                     Toast.makeText(view.getContext(),homeModelArrayList.get(position).getProductName(), Toast.LENGTH_SHORT).show();
                 }
                 intent.putExtras(bundle);
-//                view.getContext().startActivity(intent);
+                view.getContext().startActivity(intent);
 
             }
         };
 
-        holder.itemView.findViewById(R.id.addToCart).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                BagModel bagModel = new BagModel();
 
-                firebaseDatabase = FirebaseDatabase.getInstance();
-                databaseReference = firebaseDatabase.getReference("Users/"+bagModel.getUsername()+"/Bucket").child(name);
-                databaseReference.child("ProductName").setValue(name);
-                databaseReference.child("ProductImage").setValue(image);
-                databaseReference.child("ProductCategory").setValue(category);
-                databaseReference.child("ProductPrice").setValue(price);
-                databaseReference.child("ProductOffers").setValue(offers);
-
-            }
-        });
     }
 
 

@@ -1,12 +1,6 @@
 package com.example.pmjewellers.ui.bag;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Context;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,7 +72,7 @@ public class BagFragmentAdapter extends RecyclerView.Adapter<BagFragmentAdapter.
                     @Override
                     public void onClick(View view) {
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                        Query applesQuery = ref.child("Users/"+bagModel.getUsername()).child("/Bucket").child(homeModelArrayList.get(position).getProductName());
+                        Query applesQuery = ref.child("Users/"+bagModel.getUsername()).child("/Bucket/").child(homeModelArrayList.get(position).getProductName());
 
                         applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override

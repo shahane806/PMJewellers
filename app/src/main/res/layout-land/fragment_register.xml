@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".loginRegisterFragments.RegisterFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+
+        >
+
+    <LinearLayout
+        android:id="@+id/Register"
+        android:layout_width="350dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="30dp"
+        android:orientation="vertical">
+
+
+
+        <TextView
+            android:id="@+id/RegisterMainHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/Register"
+            android:layout_marginTop="5dp"
+            android:textColor="#13289C"
+            android:textSize="33dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/UserName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/UserName"
+            android:gravity="center"
+            android:textStyle="bold"
+            />
+        <EditText
+            android:id="@+id/RegisterEmailId"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:hint="abc@gmail.com"
+            android:inputType="textEmailAddress"
+            android:paddingStart="10sp"
+            android:paddingEnd="10sp" />
+
+        <EditText
+            android:id="@+id/RegisterPassword"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:paddingStart="10sp"
+            android:paddingEnd="10sp" />
+
+         <EditText
+            android:id="@+id/ConfirmRegisterPassword"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Confirm Password"
+             android:textStyle="bold"
+             android:inputType="textPassword"
+            android:paddingStart="10sp"
+            android:paddingEnd="10sp" />
+
+
+        <ProgressBar
+            android:id="@+id/RegisterprogressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/FragmentRegisterRegisterBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15sp"
+            android:text="@string/Register" />
+
+
+
+
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="58dp">
+
+            <TextView
+                android:id="@+id/backToLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|left"
+                android:padding="20sp"
+                android:text="@string/backToLogin"
+                android:textSize="12sp" />
+
+
+
+            <Button
+                android:id="@+id/FragmentRegisterLoginBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15sp"
+                android:text="@string/Login" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

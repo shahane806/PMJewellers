@@ -3,11 +3,9 @@ package com.example.pmjewellers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -141,7 +139,7 @@ public class HomeActivity extends AppCompatActivity {
                       fragmentTransaction.replace(R.id.nav_host_fragment_content_main, bagFragment);
                       fragmentTransaction.commit();
 
-                      Toast.makeText(HomeActivity.this, id, Toast.LENGTH_SHORT).show();
+//                      Toast.makeText(HomeActivity.this, id, Toast.LENGTH_SHORT).show();
 
 
                   }
@@ -188,55 +186,7 @@ public class HomeActivity extends AppCompatActivity {
         databaseReference=FirebaseDatabase.getInstance().getReference();
         databaseReference.child("Users/"+UserId);
 
-//            databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot Snapshot) {
-//                user=new UserInfo();
-//                Log.d("zzzzzzzzzzzzzzzzzzzz",Snapshot.getChildren().toString());
-//                if(Snapshot.hasChild("userInfo")){
-//                    Log.d("ZZZZZZZZZZZZZZZZZ","path present");
-//                }
-//                else{
-//                    Log.d("ZZZZZZZZZZZZZZZZZ","path not present");
-//
-//                }
-////                Log.d("DATA IS HERE ::::",Snapshot.child("/userInfo/").toString());
-////                for (DataSnapshot snapshot : Snapshot.getChildren()) {
-//                    try {
-////                            user= Snapshot.getValue(UserInfo.class);
-////                        user.setUserId(snapshot.child("userId").getValue().toString());
-////                        user.setUserEmail(Snapshot.child("userEmail").getValue().toString());
-////                        user.setUserName(snapshot.child("userName").getValue().toString());
-////                        user.setUserPassword(snapshot.child("userPassword").getValue().toString());
-////                        user.setUserComfirmPassword(snapshot.child("userComfirmPassword").getValue().toString());
-////                        if(user!=null){
-////                            Log.d("UserEmail",user.getUserEmail());
-////                        }
-////                        else{
-////                            Log.d("UserEmail","user.getUserEmail() is null");
-////
-////                        }
-//                    }
-//                    catch (Exception e){
-//                        Log.d("Error : ",e.toString());
-//                    }
-////                }
-////                try{
-////                Log.d("UserName", user.getUserName());
-////                Log.d("UserId", user.getUserId());
-////                Log.d("UserPassword", user.getUserPassword());
-////                Log.d("UserComPassword", user.getUserComfirmPassword());
-////                Log.d("UserEmail", user.getUserEmail());}catch (Exception e){
-////                    Log.d("Error : ",e.toString());
-////                }
-//            }
-//
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+
         databaseReference=FirebaseDatabase.getInstance().getReference().child("Users/"+UserId+"/UserInfo");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
