@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -64,9 +65,11 @@ public class BagFragment extends Fragment {
     BagFragmentAdapter adapter;
 
     RecyclerView recyclerView;
+    float toatalcost;
 
     LinearLayoutManager linearLayoutManager;
     View view;
+    TextView TotalItems,TotalCost;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +86,7 @@ public class BagFragment extends Fragment {
         // Inflate the layout for this fragment
          view =  inflater.inflate(R.layout.fragment_bag, container, false);
         myref = FirebaseDatabase.getInstance().getReference();
+
         Thread thread = new Thread(){
             @Override
             public void run() {
@@ -104,14 +108,16 @@ public class BagFragment extends Fragment {
 
         return view;
     }
-
     //***************************************************  WORKING ON CART  *********************//
     public void ShowBucket(){
 
         BagModel bagModel = new BagModel();
         Query query = myref.child("Users/"+bagModel.getUsername()+"/Bucket");
         recyclerView= view.findViewById(R.id.BagRecyclerView);
+        TotalItems = view.findViewById(R.id.TotalItems);
+        TotalCost  = view.findViewById(R.id.TotalCost);
         adapter = new BagFragmentAdapter(getActivity().getApplicationContext(),homeModelArrayList);
+
 
         linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -122,11 +128,13 @@ public class BagFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Clear_homeModelArrayList();
+                toatalcost=0;
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
 
                         BagModel bagModel = new BagModel();
 
                    try {
+
                        bagModel.setProductImage(snapshot.child("ProductImage").getValue().toString());
                        bagModel.setProductName(snapshot.child("ProductName").getValue().toString());
                        bagModel.setProductCategory(snapshot.child("ProductCategory").getValue().toString());
@@ -140,6 +148,9 @@ public class BagFragment extends Fragment {
                     homeModelArrayList.add(bagModel);
                 }
                 adapter = new BagFragmentAdapter(getContext(),homeModelArrayList);
+                TotalItems.setText("Total Items : "+adapter.getItemCount());
+                TotalCost.setText("Total Cost:"+adapter.getSum());
+
                 recyclerView.setAdapter(adapter);
 
             }

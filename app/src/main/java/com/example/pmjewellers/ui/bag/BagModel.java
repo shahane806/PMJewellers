@@ -5,6 +5,7 @@ import com.google.firebase.firestore.auth.User;
 
 public class BagModel {
     String ProductImage,ProductName,ProductCategory,ProductOffer,ProductPrice;
+     String TotalCost = "0";
     static String Username;
     public BagModel(String ProductImage , String ProductName, String ProductCategory,String ProductOffer,String ProductPrice){
         this.ProductImage = ProductImage;
@@ -14,6 +15,15 @@ public class BagModel {
         this.ProductPrice = ProductPrice;
 
     }
+
+    public  String getTotalCost() {
+        return TotalCost;
+    }
+
+    public  void setTotalCost(String totalCost) {
+        this.TotalCost = totalCost;
+    }
+
     public BagModel(String image){
         this.ProductImage = image;
     }

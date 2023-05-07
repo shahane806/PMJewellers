@@ -1,6 +1,7 @@
 package com.example.pmjewellers.ui.bag;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +28,9 @@ public class BagFragmentAdapter extends RecyclerView.Adapter<BagFragmentAdapter.
     ArrayList<BagModel> homeModelArrayList;
 
     String image,name,category,price,offers;
-    static String TotalCost;
-
-
+      float sum = 0;
+     static String TotalCost;
+    BagModel    bagModel = new BagModel();
     public BagFragmentAdapter(Context c, ArrayList<BagModel> h) {
         this.homeModelArrayList = h;
         this.context = c;
@@ -55,12 +56,32 @@ public class BagFragmentAdapter extends RecyclerView.Adapter<BagFragmentAdapter.
         holder.ProductCategory.setText(homeModelArrayList.get(position).getProductCategory());
         holder.ProductPrice.setText(homeModelArrayList.get(position).getProductPrice());
         holder.ProductOffers.setText(homeModelArrayList.get(position).getProductOffer());
+
         image = homeModelArrayList.get(position).getProductImage();
         name = homeModelArrayList.get(position).getProductName();
         category = homeModelArrayList.get(position).getProductCategory();
         price = homeModelArrayList.get(position).getProductPrice();
         offers = homeModelArrayList.get(position).getProductOffer();
-        BagModel    bagModel = new BagModel();
+
+
+
+        try{
+            String cost = "0";
+            setTotalCost(cost);
+            cost = String.valueOf(Float.parseFloat(cost)+Float.parseFloat(getTotalCost(position)));
+
+            sum += Float.parseFloat(getTotalCost(position));
+
+            setSum(sum);
+
+            Toast.makeText(context, String.valueOf(sum), Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+
+
         Button remove ;
         remove = holder.itemView.findViewById(R.id.removeFromCart);
 
@@ -99,7 +120,9 @@ public class BagFragmentAdapter extends RecyclerView.Adapter<BagFragmentAdapter.
                             public void onCancelled(DatabaseError databaseError) {
                             }
                         });}
+
                     }
+
                 });
 //            }
 //        });
@@ -114,6 +137,14 @@ public class BagFragmentAdapter extends RecyclerView.Adapter<BagFragmentAdapter.
     @Override
     public int getItemCount() {
         return homeModelArrayList.size();
+    }
+
+    public void setSum(float sum) {
+        this.sum = sum;
+    }
+
+    public float getSum() {
+        return sum;
     }
 
     public String getTotalCost(int position) {
@@ -172,7 +203,7 @@ public class BagFragmentAdapter extends RecyclerView.Adapter<BagFragmentAdapter.
 
     public class viewHolder extends RecyclerView.ViewHolder{
         ImageView ProductImage;
-        TextView ProductName,ProductCategory,ProductPrice,ProductOffers;
+        TextView ProductName,ProductCategory,ProductPrice,ProductOffers,TotalItems;
 
         public viewHolder(@NonNull View itemView) {
 
@@ -180,6 +211,7 @@ public class BagFragmentAdapter extends RecyclerView.Adapter<BagFragmentAdapter.
 
 
             context  = itemView.getContext();
+            TotalItems = itemView.findViewById(R.id.TotalItems);
 
             ProductImage = itemView.findViewById(R.id.ProductImage);
             ProductName = itemView.findViewById(R.id.ProductName);
