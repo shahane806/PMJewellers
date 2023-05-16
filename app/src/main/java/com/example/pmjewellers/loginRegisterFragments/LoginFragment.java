@@ -50,7 +50,7 @@ public class LoginFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    EditText email,password;
+    public EditText email,password;
     private FirebaseAuth login_authentication;
     MainActivity mainActivity;
     AlertHandling alert;

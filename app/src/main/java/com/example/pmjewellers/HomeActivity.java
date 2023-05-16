@@ -41,13 +41,11 @@ public class HomeActivity extends AppCompatActivity {
     NavigationView navigationView;
     UserInfo user;
 
-    GoogleSignInOptions gso;
-    GoogleSignInClient gsc;
-    TextView UserId,UserEId;
+
      static String lastFragment;
 
     static String id = "HomeFragment";
-    MenuItem menuItem;
+
     BagFragment bagFragment = new BagFragment();
      FirebaseDatabase firebaseDatabase;
 
@@ -169,7 +167,6 @@ public class HomeActivity extends AppCompatActivity {
             setHeaderUser();
 
     }
-    BagModel bagModel = new BagModel();
 
     private void setHeaderUser() {
 

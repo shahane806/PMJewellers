@@ -1,8 +1,6 @@
 package com.example.pmjewellers.ui.bag;
 
 
-import com.google.firebase.firestore.auth.User;
-
 public class BagModel {
     String ProductImage,ProductName,ProductCategory,ProductOffer,ProductPrice;
      String TotalCost = "0";
@@ -46,8 +44,9 @@ public class BagModel {
         return ProductPrice;
     }
 
-    public void setProductPrice(String productPrice) {
+    public String setProductPrice(String productPrice) {
         ProductPrice = productPrice;
+        return productPrice;
     }
 
     public void setProductCategory(String productCategory) {

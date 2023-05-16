@@ -133,7 +133,7 @@ public class AccountFragment extends Fragment {
                       mobile.setText(snapshot.child("Mobile").getValue().toString());
                       email.setText(snapshot.child("Email").getValue().toString());
                       String uri = snapshot.child("ProfilePicture").getValue().toString();
-                      Glide.with(getContext()).load(uri).centerCrop().into(profileImage);
+                      Glide.with(getContext()).load(uri).circleCrop().into(profileImage);
                   }
                   catch (Exception e){
                       e.printStackTrace();

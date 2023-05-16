@@ -1,6 +1,7 @@
 package com.example.pmjewellers.ui.bag;
 
 import android.content.Context;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,8 +83,22 @@ public class BagFragmentAdapter extends RecyclerView.Adapter<BagFragmentAdapter.
 
 
 
-        Button remove ;
+        Button remove ,buy;
+        buy = holder.itemView.findViewById(R.id.Buy);
         remove = holder.itemView.findViewById(R.id.removeFromCart);
+        buy.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context.getApplicationContext(), "Message Send...", Toast.LENGTH_SHORT).show();
+                sendSMS("5554","Product Name : "+homeModelArrayList.get(position).getProductName()+"\n"+
+                                                "Product Category : "+homeModelArrayList.get(position).getProductCategory()+"\n"+
+                                                "Product Price  : "+homeModelArrayList.get(position).getProductPrice()+"\n"+
+                                                "Payment Id: "+"\n"+
+                                                "Total Price :"+homeModelArrayList.get(position).getProductPrice()+"\n");
+            }
+        });
+
 
 //        holder.itemView.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -131,7 +146,10 @@ public class BagFragmentAdapter extends RecyclerView.Adapter<BagFragmentAdapter.
     }
 
 
-
+    private void sendSMS(String phoneNumber,String msg){
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(phoneNumber,null,msg,null,null);
+    }
 
 
     @Override

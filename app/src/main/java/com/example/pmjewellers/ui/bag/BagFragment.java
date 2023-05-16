@@ -65,7 +65,7 @@ public class BagFragment extends Fragment {
     BagFragmentAdapter adapter;
 
     RecyclerView recyclerView;
-    float toatalcost;
+     float toatalcost;
 
     LinearLayoutManager linearLayoutManager;
     View view;
@@ -140,6 +140,8 @@ public class BagFragment extends Fragment {
                        bagModel.setProductCategory(snapshot.child("ProductCategory").getValue().toString());
                        bagModel.setProductOffer(snapshot.child("ProductOffers").getValue().toString());
                        bagModel.setProductPrice(snapshot.child("ProductPrice").getValue().toString());
+                       toatalcost = toatalcost+Float.parseFloat(bagModel.getProductPrice());
+
                    }
                    catch (Exception e){
                        e.printStackTrace();
@@ -149,7 +151,7 @@ public class BagFragment extends Fragment {
                 }
                 adapter = new BagFragmentAdapter(getContext(),homeModelArrayList);
                 TotalItems.setText("Total Items : "+adapter.getItemCount());
-                TotalCost.setText("Total Cost:"+adapter.getSum());
+                TotalCost.setText("Total Cost:"+toatalcost);
 
                 recyclerView.setAdapter(adapter);
 
