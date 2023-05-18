@@ -31,6 +31,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.example.pmjewellers.R;
+import com.example.pmjewellers.UserInfo;
 import com.example.pmjewellers.ui.bag.BagModel;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -42,6 +43,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.auth.User;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -105,7 +107,9 @@ public class AccountFragment extends Fragment {
     StorageReference storageReference;
     ImageView profileImage;
     Uri image;
+    MainActivity mainActivity;
     String t;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -117,13 +121,13 @@ public class AccountFragment extends Fragment {
         mobile = view.findViewById(R.id.mobileNumber);
         email = view.findViewById(R.id.ProfileEmailId);
         profileImage = view.findViewById(R.id.ProfilePicture);
+        mainActivity = new MainActivity();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         BagModel bagModel = new BagModel();
         profileDetails = new ProfileDetails();
 
 
-
-           Query query = databaseReference.child(bagModel.getUsername());
+           Query query = databaseReference.child("Users/"+bagModel.getUsername()+"/UserInfo");
            query.addValueEventListener(new ValueEventListener() {
                @Override
                public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -174,7 +178,7 @@ public class AccountFragment extends Fragment {
             save.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                try{
                     profileDetails.setName(name.getText().toString());
                     profileDetails.setAddress(address.getText().toString());
                     profileDetails.setMobile(mobile.getText().toString());
@@ -196,12 +200,17 @@ public class AccountFragment extends Fragment {
                                 Glide.with(getContext()).load(uri).centerCrop().into(profileImage);
                                 Toast.makeText(getContext(), t, Toast.LENGTH_SHORT).show();
                                 profileDetails.setProfilePicture(t);
-                                setUserDetailsToFirebase();
+                                try {
+                                    setUserDetailsToFirebase();
+                                }
+                                catch (Exception e){
+                                    e.printStackTrace();
+                                }
                             }
 
                         }
 
-                }).addOnFailureListener(new OnFailureListener() {
+                    }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Toast.makeText(getContext(), "Upload Failed, Save Again...", Toast.LENGTH_SHORT).show();
@@ -210,6 +219,10 @@ public class AccountFragment extends Fragment {
                             }
                         }
                     });
+
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
 
 
 
@@ -268,14 +281,14 @@ public class AccountFragment extends Fragment {
     }
     public void setUserDetailsToFirebase(){
         BagModel bagModel = new BagModel();
-
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference(bagModel.getUsername());
+        databaseReference = firebaseDatabase.getReference("Users/"+bagModel.getUsername()+"/UserInfo");
         databaseReference.child("ProfilePicture").setValue(profileDetails.getProfilePicture());
         databaseReference.child("Address").setValue(profileDetails.getAddress());
         databaseReference.child("Mobile").setValue(profileDetails.getMobile());
         databaseReference.child("Name").setValue(profileDetails.getName());
         databaseReference.child("Email").setValue(profileDetails.getEmail());
+
 
     }
 

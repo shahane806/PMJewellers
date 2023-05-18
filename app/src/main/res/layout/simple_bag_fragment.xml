@@ -89,7 +89,6 @@
 
                     android:gravity="center"
                     android:text="Offers"
-
                     android:textColor="@color/googlebackgroundColor"
                     android:textSize="10sp" android:layout_weight="1"
 
@@ -99,7 +98,7 @@
                     android:text="Remove"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
+                    android:layout_margin="3dp"
                     android:layout_weight="1"
                     />
                 <Button
@@ -107,6 +106,7 @@
                     android:text="Buy"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_margin="3dp"
 
                     android:layout_weight="1"
                     />

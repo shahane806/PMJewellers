@@ -196,19 +196,20 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
                                                    String userId = accountinfo.getId().toString();
                                                    String userEId = accountinfo.getEmail().toString();
                                                    String[] name=userEId.split("@");
+
                                                    mainActivity.user=new UserInfo(name[0],userEId,userId);
-                                                   try{
-                                                       database= FirebaseDatabase.getInstance().getReference();
-                                                       if(database.child("Users").child(userId).child("UserInfo").setValue(mainActivity.user).isSuccessful())
-                                                       {
-                                                           Log.d("Send data to firebase","Execut Successfully");
-                                                       }else{
-                                                           Log.d("Send data to firebase","Execut Un-successfully");
-                                                       }
-                                                   }
-                                                   catch(Exception e){
-                                                       Log.d("Error : ",e.toString());
-                                                   }
+//                                                   try{
+//                                                       database= FirebaseDatabase.getInstance().getReference();
+//                                                       if(database.child("Users").child(userId).child("UserInfo").setValue(mainActivity.user).isSuccessful())
+//                                                       {
+//                                                           Log.d("Send data to firebase","Execut Successfully");
+//                                                       }else{
+//                                                           Log.d("Send data to firebase","Execut Un-successfully");
+//                                                       }
+//                                                   }
+//                                                   catch(Exception e){
+//                                                       Log.d("Error : ",e.toString());
+//                                                   }
 
                                                    Intent i=new Intent(getContext(), HomeActivity.class);
 

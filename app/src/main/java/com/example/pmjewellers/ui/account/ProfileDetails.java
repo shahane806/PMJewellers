@@ -12,7 +12,7 @@ public class ProfileDetails {
         this.profilePicture = profilePicture;
 
     }
-    ProfileDetails(){}
+    public ProfileDetails(){}
 
     public String getProfilePicture() {
         return profilePicture;

@@ -184,13 +184,13 @@ public class HomeActivity extends AppCompatActivity {
         databaseReference.child("Users/"+UserId);
 
 
+
         databaseReference=FirebaseDatabase.getInstance().getReference().child("Users/"+UserId+"/UserInfo");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 try {
                     user = snapshot.getValue(UserInfo.class);
-
                     Log.d("UserName : : : : : : ",user.getUserName());
                 }
                 catch(Exception e) {

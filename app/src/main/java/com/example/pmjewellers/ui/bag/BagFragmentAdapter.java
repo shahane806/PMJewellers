@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.pmjewellers.R;
+import com.example.pmjewellers.ui.account.ProfileDetails;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +28,8 @@ import java.util.ArrayList;
 public class BagFragmentAdapter extends RecyclerView.Adapter<BagFragmentAdapter.viewHolder>  {
     Context context;
     ArrayList<BagModel> homeModelArrayList;
-
+    DatabaseReference databaseReference;
+    FirebaseDatabase firebaseDatabase;
     String image,name,category,price,offers;
       float sum = 0;
      static String TotalCost;
@@ -83,19 +85,47 @@ public class BagFragmentAdapter extends RecyclerView.Adapter<BagFragmentAdapter.
 
 
 
-        Button remove ,buy;
+        Button remove ,buy,checkout;
         buy = holder.itemView.findViewById(R.id.Buy);
         remove = holder.itemView.findViewById(R.id.removeFromCart);
+        checkout = holder.itemView.findViewById(R.id.Checkout);
+
+        ProfileDetails profileDetails = new ProfileDetails();
+        BagModel b  = new BagModel();
+
         buy.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                Toast.makeText(context.getApplicationContext(), "Message Send...", Toast.LENGTH_SHORT).show();
-                sendSMS("5554","Product Name : "+homeModelArrayList.get(position).getProductName()+"\n"+
-                                                "Product Category : "+homeModelArrayList.get(position).getProductCategory()+"\n"+
-                                                "Product Price  : "+homeModelArrayList.get(position).getProductPrice()+"\n"+
-                                                "Payment Id: "+"\n"+
-                                                "Total Price :"+homeModelArrayList.get(position).getProductPrice()+"\n");
+
+                firebaseDatabase = FirebaseDatabase.getInstance();
+                final String[] mobile = new String[1];
+                databaseReference = firebaseDatabase.getReference("/Users/"+bagModel.getUsername()+"/UserInfo/");
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                       mobile[0] = snapshot.child("Mobile").getValue().toString();
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                try {
+                    sendSMS("+91"+mobile[0],"Prashant Manurkar Jewellers \n<<<Payment receipt>>>\nPayment Id: "+b.getUsername()+Math.random()*200+"\nProduct Name : "+homeModelArrayList.get(position).getProductName()+"\n"+
+                            "Product Category : "+homeModelArrayList.get(position).getProductCategory()+"\n"+
+                            "Product Price  : "+homeModelArrayList.get(position).getProductPrice()+"\n"+
+
+                            "Total Price :"+homeModelArrayList.get(position).getProductPrice()+"\n"+"Thank you\n" );
+                    Toast.makeText(context.getApplicationContext(), "Receipt Generated.", Toast.LENGTH_SHORT).show();
+
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
 
